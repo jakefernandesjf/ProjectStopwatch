@@ -131,9 +131,11 @@
     <ClInclude Include="ProjectTimer.h" />
     <ClInclude Include="Resource.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="timer.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ProjectTimer.cpp" />
+    <ClCompile Include="timer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ProjectTimer.rc" />
