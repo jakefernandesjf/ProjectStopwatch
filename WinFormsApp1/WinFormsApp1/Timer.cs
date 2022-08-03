@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace WinFormsApp1
+﻿namespace WinFormsApp1
 {
     internal class Timer
     {
@@ -14,16 +8,18 @@ namespace WinFormsApp1
         /// </summary>
         public Timer()
         {
-            // TODO
+            StartPoint = DateTime.Now;
+            TimeElapsed = DateTime.Now - StartPoint;
+            SetActiveStatus(true);
         }
-        
+
         /// <summary>
         /// Creates a <c>Timer</c> object with name <paramref name="_name"/>.
         /// </summary>
         /// <param name="_name">Name of the <c>Timer</c></param>
-        public Timer(string _name)
+        public Timer(string _name) : this()
         {
-            // TODO
+            Name = _name;
         }
         #endregion
 
@@ -34,33 +30,58 @@ namespace WinFormsApp1
         /// </summary>
         public void PauseTimer()
         {
-            // TODO
+            if (IsTimerActive())
+            {
+                // Do nothing
+            }
+            else
+            {
+                SetActiveStatus(false);
+                TimeElapsed = TimeElapsed + (DateTime.Now - StartPoint);
+            }
         }
-        
+
         /// <summary>
         /// Starts the <c>Timer</c>.
         /// </summary>
         public void StartTimer()
         {
-            // TODO
+            var _newStartPoint = DateTime.Now;
+            if (IsTimerActive())
+            {
+                // Do nothing
+            }
+            else
+            {
+                SetActiveStatus(true);
+                StartPoint = _newStartPoint;
+            }
         }
-        
+
         /// <summary>
         /// Resets the <c>Timer</c> to 0.
         /// </summary>
         public void ResetTimer()
         {
-            // TODO
+            StartPoint = DateTime.Now;
+            SetActiveStatus(true);
+            TimeElapsed = DateTime.Now - StartPoint;
         }
-        
+
         /// <summary>
         /// Gets the time elapsed from the <c>Timer</c>.
         /// </summary>
         /// <returns>Time Elapsed <c>TimeSpan</c></returns>
         public TimeSpan GetTimeElapsed()
         {
-            // TODO
-            return TimeSpan.Zero;
+            if (IsTimerActive())
+            {
+                return DateTime.Now - StartPoint + TimeElapsed;
+            }
+            else
+            {
+                return TimeElapsed;
+            }
         }
 
         /// <summary>
@@ -69,17 +90,16 @@ namespace WinFormsApp1
         /// <returns><c>True</c> if the <c>Timer</c> is active, <c>False</c> if the <c>Timer</c> is inactive.</returns>
         public bool IsTimerActive()
         {
-            // TODO
-            return false;
+            return ActiveStatus;
         }
-        
+
         /// <summary>
         /// Adds <paramref name="_time"/> to the <c>Timer</c>.
         /// </summary>
         /// <param name="_time">Time to be added to the timer.</param>
         public void AddTime(TimeSpan _time)
         {
-            // TODO
+            TimeElapsed = TimeElapsed + _time;
         }
 
         /// <summary>
@@ -88,7 +108,7 @@ namespace WinFormsApp1
         /// <param name="_time">Time to be subtracted from the timer.</param>
         public void SubtractTime(TimeSpan _time)
         {
-            // TODO
+            TimeElapsed = TimeElapsed - _time;
         }
 
         /// <summary>
@@ -97,7 +117,7 @@ namespace WinFormsApp1
         /// <param name="_name">The name of the timer.</param>
         public void SetName(string _name)
         {
-            // TODO
+            Name = _name;
         }
 
         /// <summary>
@@ -106,8 +126,7 @@ namespace WinFormsApp1
         /// <returns>Name of the timer</returns>
         public string GetName()
         {
-            return string.Empty;
-            // TODO
+            return Name;
         }
         #endregion
 
@@ -119,7 +138,7 @@ namespace WinFormsApp1
         /// <param name="_status">Status of the <c>Timer</c></param>
         private void SetActiveStatus(bool _status)
         {
-            // TODO
+            ActiveStatus = _status;
         }
         #endregion
 
@@ -128,6 +147,7 @@ namespace WinFormsApp1
         private DateTime StartPoint;
         private TimeSpan TimeElapsed;
         private bool ActiveStatus;
+        private string Name = "";
         #endregion
     }
 
@@ -138,9 +158,10 @@ namespace WinFormsApp1
         /// <summary>
         /// Creates a <c>TotalTimer</c> object.
         /// </summary>
-        public TotalTimer()
+        public TotalTimer() : base()
         {
-            // TODO
+            SubTimers = new List<Timer> { new Timer() };
+            ActiveSubTimer = SubTimers.First();
         }
 
         /// <summary>
@@ -148,9 +169,10 @@ namespace WinFormsApp1
         /// </summary>
         /// <param name="_name">Name of the <c>TotalTimer</c></param>
         /// <param name="_subTimers">List of sub-timers for the <c>TotalTimer</c></param>
-        public TotalTimer(string _name, List<Timer> _subTimers)
+        public TotalTimer(string _name, List<Timer> _subTimers) : base(_name)
         {
-            // TODO
+            SubTimers = _subTimers;
+            ActiveSubTimer = _subTimers.First();
         }
         #endregion
 
@@ -161,7 +183,11 @@ namespace WinFormsApp1
         /// </summary>
         public new void PauseTimer()
         {
-            // TODO
+            Thread TotalTimerThread = new(() => base.PauseTimer());
+            Thread ActiveSubTimerThread = new(() => PauseActiveSubTimer());
+
+            TotalTimerThread.Start();
+            ActiveSubTimerThread.Start();
         }
 
         /// <summary>
@@ -170,16 +196,23 @@ namespace WinFormsApp1
         /// <param name="_subTimer">Timer to be added as a sub-timer to the <c>TotalTimer</c></param>
         public void AddSubTimer(Timer _subTimer)
         {
-            // TODO
+            SubTimers.Append(_subTimer);
         }
 
         /// <summary>
-        /// Removes the sub-timer at position <paramref name="_position"/> of the sub-timers list.
+        /// Removes the sub-timer <paramref name="_subTimer"/> from the sub-timers list.
         /// </summary>
-        /// <param name="_position">Position of the sub-timer to be removed from the <c>TotalTimer</c></param>
-        public void RemoveSubTimer(int _position)
+        /// <param name="_subTimer">Sub-timer to be removed from the <c>TotalTimer</c></param>
+        public void RemoveSubTimer(Timer _subTimer)
         {
-            // TODO
+            if (SubTimers.Contains(_subTimer) == false)
+            {
+                throw new ArgumentException($"SubTimers does not contain {_subTimer.GetName()}");
+            }
+            else
+            {
+                SubTimers.Remove(_subTimer);
+            }
         }
 
         /// <summary>
@@ -188,17 +221,29 @@ namespace WinFormsApp1
         /// <returns>List of sub-timers of the <c>TotalTimer</c></returns>
         public List<Timer> GetSubTimers()
         {
-            return new List<Timer>();
-            // TODO
+            return SubTimers;
         }
 
         /// <summary>
-        /// Sets the active sub-timer to the sub-timer at position <paramref name="_position"/> and starts that sub-timer.
+        /// Sets the active sub-timer to the <paramref name="_subTimer"/> and starts that sub-timer.
         /// </summary>
-        /// <param name="_position">Position of sub-timer</param>
-        public void SetAndStartActiveSubTimer(int _position)
+        /// <param name="_subTimer">Sub-timer to start</param>
+        public void SetAndStartActiveSubTimer(Timer _subTimer)
         {
-            // TODO
+            if (SubTimers.Contains(_subTimer) == false)
+            {
+                throw new ArgumentException($"SubTimers does not contain {_subTimer.GetName()}");
+            }
+            else
+            {
+                Thread ActiveSubTimerThread = new(() => ActiveSubTimer.PauseTimer());
+                Thread _subTimerThread = new(() => _subTimer.StartTimer());
+
+                ActiveSubTimerThread.Start();
+                _subTimerThread.Start();
+
+                ActiveSubTimer = _subTimer;
+            }
         }
 
         /// <summary>
@@ -207,8 +252,7 @@ namespace WinFormsApp1
         /// <returns>Active sub-timer of the <c>TotalTimer</c></returns>
         public Timer GetActiveSubTimer()
         {
-            return new Timer();
-            // TODO
+            return ActiveSubTimer;
         }
         #endregion
 
@@ -219,7 +263,11 @@ namespace WinFormsApp1
         /// </summary>
         private void StartActiveSubTimer()
         {
-            // TODO
+            Thread TotalTimerThread = new(() => StartTimer());
+            Thread ActiveSubTimerThread = new(() => ActiveSubTimer.StartTimer());
+
+            TotalTimerThread.Start();
+            ActiveSubTimerThread.Start();
         }
 
         /// <summary>
@@ -227,13 +275,13 @@ namespace WinFormsApp1
         /// </summary>
         private void PauseActiveSubTimer()
         {
-            // TODO
+            ActiveSubTimer.PauseTimer();
         }
         #endregion
 
 
         #region Private Fields
-        private List<Timer> SubTimers;      // TODO: Determine if List is the best container to use in C# for this
+        private List<Timer> SubTimers;
         private Timer ActiveSubTimer;
         #endregion
     }
