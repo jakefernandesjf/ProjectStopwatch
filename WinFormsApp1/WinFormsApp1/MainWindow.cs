@@ -1,10 +1,12 @@
+using ProjectTimerWinFormsApp;
+
 namespace WinFormsApp1
 {
     public partial class ProjectTimer : Form
     {
         public ProjectTimer()
         {
-            InitializeComponent();
+            InitializeComponent();           
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -13,9 +15,10 @@ namespace WinFormsApp1
         }
 
         #region ToolStrip Menu
-        private void SettingsToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-
+            AddProjects addProjects = new();
+            addProjects.Show();
         }
 
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
