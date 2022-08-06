@@ -106,6 +106,7 @@
             // 
             // AddProjects
             // 
+            this.AcceptButton = this.SaveAndExit_Button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 281);
