@@ -9,8 +9,8 @@
         public Timer()
         {
             StartPoint = DateTime.Now;
-            TimeElapsed = DateTime.Now - StartPoint;
-            SetActiveStatus(true);
+            TimeElapsed = TimeSpan.Zero;
+            SetActiveStatus(false);
         }
 
         /// <summary>
@@ -28,7 +28,7 @@
         /// <summary>
         /// Pauses the <c>Timer</c>.
         /// </summary>
-        public void PauseTimer()
+        public virtual void PauseTimer()
         {
             if (IsTimerActive())
             {
@@ -61,11 +61,11 @@
         /// <summary>
         /// Resets the <c>Timer</c> to 0.
         /// </summary>
-        public void ResetTimer()
+        public virtual void ResetTimer()
         {
             StartPoint = DateTime.Now;
-            SetActiveStatus(true);
-            TimeElapsed = DateTime.Now - StartPoint;
+            TimeElapsed = TimeSpan.Zero;
+            SetActiveStatus(false);
         }
 
         /// <summary>
@@ -181,13 +181,26 @@
         /// <summary>
         /// Pauses the <c>TotalTimer</c>.
         /// </summary>
-        public new void PauseTimer()
+        public override void PauseTimer()
         {
             Thread TotalTimerThread = new(() => base.PauseTimer());
             Thread ActiveSubTimerThread = new(() => PauseActiveSubTimer());
 
             TotalTimerThread.Start();
             ActiveSubTimerThread.Start();
+        }
+
+        /// <summary>
+        /// Resets the <c>TotalTimer</c> to 0 and all sub-timers.
+        /// </summary>
+        public override void ResetTimer()
+        {
+            base.ResetTimer();
+
+            foreach (Timer _timer in SubTimers)
+            {
+                _timer.ResetTimer();
+            }
         }
 
         /// <summary>
@@ -216,6 +229,18 @@
         }
 
         /// <summary>
+        /// Removes all sub-timers and resets <c>TotalTimer</c>
+        /// </summary>
+        public void RemoveAllSubTimers()
+        {
+            Thread TotalTimerThread = new(() => base.ResetTimer());
+            Thread SubTimersThread = new(() => SubTimers.Clear());
+
+            TotalTimerThread.Start();
+            SubTimersThread.Start();
+        }
+
+        /// <summary>
         /// Gets the list of sub-timers of the <c>TotalTimer</c>.
         /// </summary>
         /// <returns>List of sub-timers of the <c>TotalTimer</c></returns>
@@ -236,13 +261,14 @@
             }
             else
             {
-                Thread ActiveSubTimerThread = new(() => ActiveSubTimer.PauseTimer());
-                Thread _subTimerThread = new(() => _subTimer.StartTimer());
-
-                ActiveSubTimerThread.Start();
-                _subTimerThread.Start();
-
+                Timer lastTimer = ActiveSubTimer;
                 ActiveSubTimer = _subTimer;
+
+                Thread StartActiveSubTimerThread = new(() => StartActiveSubTimer());
+                Thread PauseLastTimerThread = new(() => lastTimer.PauseTimer());
+
+                StartActiveSubTimerThread.Start();
+                PauseLastTimerThread.Start();
             }
         }
 
@@ -253,6 +279,24 @@
         public Timer GetActiveSubTimer()
         {
             return ActiveSubTimer;
+        }
+
+        /// <summary>
+        /// Adds <paramref name="_time"/> to active sub-timer.
+        /// </summary>
+        /// <param name="_time"></param>
+        public void AddTimeToActiveSubTimer(TimeSpan _time)
+        {
+            ActiveSubTimer.AddTime(_time);
+        }
+
+        /// <summary>
+        /// Subtracts <paramref name="_time"/> from active sub-timer.
+        /// </summary>
+        /// <param name="_time"></param>
+        public void SubtractTimeFromActiveSubTimer(TimeSpan _time)
+        {
+            ActiveSubTimer.SubtractTime(_time);
         }
         #endregion
 
