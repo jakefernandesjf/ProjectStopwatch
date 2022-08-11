@@ -1,6 +1,6 @@
-using ProjectTimerWinFormsApp;
+using AddProjectsForm;
 
-namespace WinFormsApp1
+namespace MainForm
 {
     public partial class ProjectTimer : Form
     {

@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+﻿namespace MyTimers
 {
     internal class Timer
     {

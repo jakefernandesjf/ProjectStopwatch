@@ -1,4 +1,4 @@
-﻿namespace WinFormsApp1
+﻿namespace MainForm
 {
     partial class ProjectTimer
     {

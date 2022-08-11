@@ -1,4 +1,4 @@
-﻿namespace ProjectTimerWinFormsApp
+﻿namespace AddProjectsForm
 {
     partial class AddProjects
     {
