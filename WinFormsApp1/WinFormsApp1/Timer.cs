@@ -2,7 +2,7 @@
 {
     internal class Timer
     {
-        #region Constructors and Destructor
+        #region Constructors
         /// <summary>
         /// Creates a <c>Timer</c> object.
         /// </summary>
@@ -154,16 +154,7 @@
 
     internal class TotalTimer : Timer
     {
-        #region Constructors and Destructor
-        /// <summary>
-        /// Creates a <c>TotalTimer</c> object.
-        /// </summary>
-        public TotalTimer() : base()
-        {
-            SubTimers = new List<Timer> { new Timer() };
-            ActiveSubTimer = SubTimers.First();
-        }
-
+        #region Constructors
         /// <summary>
         /// Creates a <c>TotalTimer</c> object with name <paramref name="_name"/>.
         /// </summary>
