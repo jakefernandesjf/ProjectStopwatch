@@ -1,15 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using MyTimers;
+﻿using MyTimers;
 
 namespace MyTimerWidgets
 {
     internal class TimerWidget
     {
         #region Constructors
+        public TimerWidget(Label _timeElapsedLabel)
+        {
+            TimeElapsedLabel = _timeElapsedLabel;
+            ProjectNameLabel = new Label();
+            Timer = new MyTimers.Timer("Timer");
+            ActiveStatus = false;
+        }
+
         /// <summary>
         /// Creates a <c>TimerWidget</c> with TimeElapsed Label <paramref name="_timeElapsedLabel"/> and Project Name Label <paramref name="_projectNameLabel"/>
         /// </summary>
@@ -20,6 +23,7 @@ namespace MyTimerWidgets
             TimeElapsedLabel = _timeElapsedLabel;
             ProjectNameLabel = _projectNameLabel;
             Timer = new MyTimers.Timer(_projectNameLabel.Text);
+            ActiveStatus = false;
         }
         #endregion
 
@@ -48,8 +52,8 @@ namespace MyTimerWidgets
         /// </summary>
         public virtual void Enable()
         {
-            //TODO
-            //  enable visibility for labels
+            TimeElapsedLabel.Visible = true;
+            ProjectNameLabel.Visible = true;
         }
 
         /// <summary>
@@ -57,8 +61,9 @@ namespace MyTimerWidgets
         /// </summary>
         public virtual void Disable()
         {
-            //TODO
-            //  disable visibility for labels
+            TimeElapsedLabel.Visible = false;
+            ProjectNameLabel.Visible = false;
+            Reset();
         }
 
         /// <summary>
@@ -67,6 +72,7 @@ namespace MyTimerWidgets
         public virtual void Reset()
         {
             Timer.ResetTimer();
+            SetInactiveWidgetStyle();
         }
 
         /// <summary>
@@ -110,7 +116,7 @@ namespace MyTimerWidgets
         /// </summary>
         public void UpdateTimeElapsed()
         {
-            TimeElapsedLabel.Text = Timer.GetTimeElapsed().ToString();
+            TimeElapsedLabel.Text = Timer.GetTimeElapsed().ToString(@"hh\:mm\:ss");
         }
 
         /// <summary>
@@ -130,17 +136,28 @@ namespace MyTimerWidgets
         {
             Timer = _timer;
         }
+
+        /// <summary>
+        /// Get Active status of timer widget.
+        /// </summary>
+        /// <returns></returns>
+        public bool GetActiveStatus()
+        {
+            return ActiveStatus;
+        }
         #endregion
 
 
         #region Private Methods
         private void SetActiveWidgetStyle()
         {
+            ActiveStatus = true;
             //TODO
         }
 
         private void SetInactiveWidgetStyle()
         {
+            ActiveStatus = false;
             //TODO
         }
         #endregion
@@ -150,6 +167,7 @@ namespace MyTimerWidgets
         private Label TimeElapsedLabel;
         private Label ProjectNameLabel;
         private MyTimers.Timer Timer;
+        private bool ActiveStatus;
         #endregion
     }
 
@@ -160,12 +178,26 @@ namespace MyTimerWidgets
         /// Creates a <c>TotalTimerWidget</c> object.
         /// </summary>
         /// <param name="_timeElapsedLabel"></param>
-        /// <param name="_projectNameLabel"></param>
+        /// <param name="subtract30Button"></param>
+        /// <param name="subtract10Button"></param>
+        /// <param name="add10Button"></param>
+        /// <param name="add30Button"></param>
         /// <param name="_subTimerWidgets"></param>
-        public TotalTimerWidget(Label _timeElapsedLabel, Label _projectNameLabel, List<TimerWidget> _subTimerWidgets) :base(_timeElapsedLabel, _projectNameLabel)
+        public TotalTimerWidget(
+            Label _timeElapsedLabel, 
+            Button subtract30Button, 
+            Button subtract10Button,
+            Button add10Button,
+            Button add30Button,
+            List<TimerWidget> _subTimerWidgets) 
+            :base(_timeElapsedLabel)
         {
             SubTimerWidgets = _subTimerWidgets;
             ActiveTimerWidget = _subTimerWidgets.First();
+            Subtract10Button = subtract10Button;
+            Subtract30Button = subtract30Button;
+            Add10Button = add10Button;
+            Add30Button = add30Button;
             SetActiveWidgetStyle();
         }
         #endregion
@@ -241,7 +273,7 @@ namespace MyTimerWidgets
         /// Gets the list of sub-timer widgets fo the <c>TotalTimerWidget</c>.
         /// </summary>
         /// <returns></returns>
-        public List<TimerWidget> GetAllTimerWIdgets()
+        public List<TimerWidget> GetAllTimerWidgets()
         {
             return SubTimerWidgets;
         }
@@ -344,6 +376,7 @@ namespace MyTimerWidgets
         private void SetActiveWidgetStyle()
         {
             //TODO
+            //      Set buttons to active
         }
 
         private void SetInactiveWidgetStyle()
@@ -356,6 +389,10 @@ namespace MyTimerWidgets
         #region Fields
         private List<TimerWidget> SubTimerWidgets;
         private TimerWidget ActiveTimerWidget;
+        private Button Subtract30Button;
+        private Button Subtract10Button;
+        private Button Add10Button;
+        private Button Add30Button;
         #endregion
     }
 }
