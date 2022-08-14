@@ -35,7 +35,7 @@ namespace MyTimerWidgets
         public virtual void Start()
         {
             Timer.StartTimer();
-            SetActiveWidgetStyle();
+            ActiveStatus = true;
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace MyTimerWidgets
         public virtual void Pause()
         {
             Timer.PauseTimer();
-            SetInactiveWidgetStyle();
+            ActiveStatus = false;
         }
 
         /// <summary>
@@ -145,24 +145,23 @@ namespace MyTimerWidgets
         {
             return ActiveStatus;
         }
-        #endregion
 
-
-        #region Private Methods
-        private void SetActiveWidgetStyle()
+        /// <summary>
+        /// Sets the timer widget to the Active Style
+        /// </summary>
+        public void SetActiveWidgetStyle()
         {
-            ActiveStatus = true;
             TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Bold)));
-            // FIX THIS
-            //ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
+            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
         }
 
-        private void SetInactiveWidgetStyle()
+        /// <summary>
+        /// Sets the timer widget to the Inactive style.
+        /// </summary>
+        public void SetInactiveWidgetStyle()
         {
-            ActiveStatus = false;
             TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Regular)));
-            // FIX THIS
-            //ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
+            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
         }
         #endregion
 
@@ -293,9 +292,13 @@ namespace MyTimerWidgets
             {
                 throw new ArgumentException($"SubTimerWidgets does not contain {timerWidget.GetProjectName()}");
             }
+            else if (GetActiveTimerWidget() == timerWidget)
+            {
+                StartActiveTimerWidget();
+            }
             else
             {
-                TimerWidget lastTimerWidget = ActiveTimerWidget;
+                TimerWidget lastTimerWidget = GetActiveTimerWidget();
                 ActiveTimerWidget = timerWidget;
 
                 Thread StartActiveTimerWidgetThread = new(() => StartActiveTimerWidget());
@@ -303,17 +306,20 @@ namespace MyTimerWidgets
 
                 StartActiveTimerWidgetThread.Start();
                 PauseLastTimerWidgetThread.Start();
-                SetActiveWidgetStyle();
+
+                lastTimerWidget.SetInactiveWidgetStyle();
             }
+            GetActiveTimerWidget().SetActiveWidgetStyle();
+            SetActiveWidgetStyle();
         }
 
         /// <summary>
         /// Gets the active sub-timer widget of the <c>TotalTimerWidget</c>.
         /// </summary>
         /// <returns></returns>
-        public TimerWidget GetActiveTimerWidget()
+        public ref TimerWidget GetActiveTimerWidget()
         {
-            return ActiveTimerWidget;
+            return ref ActiveTimerWidget;
         }
 
         /// <summary>
