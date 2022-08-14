@@ -152,13 +152,17 @@ namespace MyTimerWidgets
         private void SetActiveWidgetStyle()
         {
             ActiveStatus = true;
-            //TODO
+            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Bold)));
+            // FIX THIS
+            //ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
         }
 
         private void SetInactiveWidgetStyle()
         {
             ActiveStatus = false;
-            //TODO
+            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Regular)));
+            // FIX THIS
+            //ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
         }
         #endregion
 
