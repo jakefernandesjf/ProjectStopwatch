@@ -108,7 +108,12 @@
         /// <param name="_time">Time to be subtracted from the timer.</param>
         public void SubtractTime(TimeSpan _time)
         {
-            TimeElapsed = TimeElapsed - _time;
+            TimeSpan newTimeElapsed = new[] { TimeSpan.Zero, TimeElapsed - _time }.Max();
+            if (newTimeElapsed == TimeSpan.Zero)
+            {
+                StartPoint = DateTime.Now;
+            }
+            TimeElapsed = newTimeElapsed;
         }
 
         /// <summary>
