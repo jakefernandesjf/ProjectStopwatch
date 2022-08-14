@@ -52,8 +52,8 @@ namespace MyTimerWidgets
         /// </summary>
         public virtual void Enable()
         {
-            TimeElapsedLabel.Visible = true;
-            ProjectNameLabel.Visible = true;
+            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Visible = true));
+            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Visible = true));
         }
 
         /// <summary>
@@ -61,8 +61,8 @@ namespace MyTimerWidgets
         /// </summary>
         public virtual void Disable()
         {
-            TimeElapsedLabel.Visible = false;
-            ProjectNameLabel.Visible = false;
+            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Visible = false));
+            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Visible = false));
             Reset();
         }
 
@@ -120,6 +120,15 @@ namespace MyTimerWidgets
         }
 
         /// <summary>
+        /// Gets the Time elapsed label.
+        /// </summary>
+        /// <returns></returns>
+        public ref Label GetTimeElapasedLabel()
+        {
+            return ref TimeElapsedLabel;
+        }
+
+        /// <summary>
         /// Gets the <c>Timer</c> of the widget.
         /// </summary>
         /// <returns></returns>
@@ -149,7 +158,7 @@ namespace MyTimerWidgets
         /// <summary>
         /// Sets the timer widget to the Active Style
         /// </summary>
-        public void SetActiveWidgetStyle()
+        public virtual void SetActiveWidgetStyle()
         {
             TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Bold)));
             ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
@@ -158,7 +167,7 @@ namespace MyTimerWidgets
         /// <summary>
         /// Sets the timer widget to the Inactive style.
         /// </summary>
-        public void SetInactiveWidgetStyle()
+        public virtual void SetInactiveWidgetStyle()
         {
             TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Regular)));
             ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
@@ -185,6 +194,7 @@ namespace MyTimerWidgets
         /// <param name="subtract10Button"></param>
         /// <param name="add10Button"></param>
         /// <param name="add30Button"></param>
+        /// <param name="pauseButton"></param>
         /// <param name="_subTimerWidgets"></param>
         public TotalTimerWidget(
             Label _timeElapsedLabel, 
@@ -192,6 +202,7 @@ namespace MyTimerWidgets
             Button subtract10Button,
             Button add10Button,
             Button add30Button,
+            Button pauseButton,
             List<TimerWidget> _subTimerWidgets) 
             :base(_timeElapsedLabel)
         {
@@ -201,7 +212,7 @@ namespace MyTimerWidgets
             Subtract30Button = subtract30Button;
             Add10Button = add10Button;
             Add30Button = add30Button;
-            SetActiveWidgetStyle();
+            PauseButton = pauseButton;
         }
         #endregion
 
@@ -217,6 +228,9 @@ namespace MyTimerWidgets
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
+
+            GetActiveTimerWidget().SetInactiveWidgetStyle();
+            SetInactiveWidgetStyle();
         }
 
         /// <summary>
@@ -347,6 +361,27 @@ namespace MyTimerWidgets
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
         }
+
+        /// <summary>
+        /// Sets the timer widget to the Active Style
+        /// </summary>
+        public override void SetActiveWidgetStyle()
+        {
+            Label timeElapsedLabel = GetTimeElapasedLabel();
+            timeElapsedLabel.Invoke(new Action(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Bold)));
+            
+            SetButtonEnabledSetting(true);
+        }
+
+        /// <summary>
+        /// Sets the timer widget to the Inactive style.
+        /// </summary>
+        public override void SetInactiveWidgetStyle()
+        {
+            Label timeElapsedLabel = GetTimeElapasedLabel();
+            timeElapsedLabel.Invoke(new Action(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Regular)));
+            SetButtonEnabledSetting(false);
+        }
         #endregion
 
 
@@ -383,15 +418,24 @@ namespace MyTimerWidgets
             }
         }
 
-        private void SetActiveWidgetStyle()
+        /// <summary>
+        /// Sets all time-modification buttons to enabled if <paramref name="setting"/> is true, disabled otherwise.
+        /// </summary>
+        /// <param name="setting"></param>
+        private void SetButtonEnabledSetting(bool setting)
         {
-            //TODO
-            //      Set buttons to active
-        }
-
-        private void SetInactiveWidgetStyle()
-        {
-            //TODO
+            List<Button> modifyTimeButtons = new List<Button>
+            {
+                Subtract10Button,
+                Subtract30Button,
+                Add10Button,
+                Add30Button,
+                PauseButton,
+            };
+            foreach (Button button in modifyTimeButtons)
+            {
+                button.Invoke(new Action(() => button.Enabled = setting));
+            }
         }
         #endregion
 
@@ -403,6 +447,7 @@ namespace MyTimerWidgets
         private Button Subtract10Button;
         private Button Add10Button;
         private Button Add30Button;
+        private Button PauseButton;
         #endregion
     }
 }

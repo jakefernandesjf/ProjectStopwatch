@@ -18,7 +18,8 @@ namespace MainForm
             Project7 = new(Project7_TimeElapsed_Label, Project7_Name_Label);
             Project8 = new(Project8_TimeElapsed_Label, Project8_Name_Label);
 
-            SubTimerWidgets = new List<TimerWidget>{
+            SubTimerWidgets = new List<TimerWidget>
+            {
                 Project1,
                 Project2,
                 Project3,
@@ -29,19 +30,21 @@ namespace MainForm
                 Project8,
             };
 
-            TotalTimerWidget = new TotalTimerWidget(
+            TotalTimerWidget = new TotalTimerWidget
+            (
                 TotalTimerTimeElapsedLabel,
                 Subtract30_Button,
                 Subtract10_Button,
                 Add10_Button,
                 Add30_Button,
+                TotalTimerPauseButton,
                 SubTimerWidgets
-                );
+            );
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            TotalTimerWidget.SetInactiveWidgetStyle();
         }
 
         #region ToolStrip Menu
