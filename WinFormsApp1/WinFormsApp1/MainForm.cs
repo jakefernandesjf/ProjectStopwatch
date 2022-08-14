@@ -61,14 +61,7 @@ namespace MainForm
         #region TotalTimer
         private void TotalTimerPause_Click(object sender, EventArgs e)
         {
-            if (TotalTimerWidget.GetActiveStatus())
-            {
-                TotalTimerWidget.Pause();
-            }
-            else
-            {
-                TotalTimerWidget.Start();
-            }
+            TotalTimerWidget.Pause();
         }
         #endregion
 
@@ -76,22 +69,22 @@ namespace MainForm
         #region ActiveTimer Buttons
         private void Subtract30_Button_Click(object sender, EventArgs e)
         {
-
+            TotalTimerWidget.SubtractTimeFromActiveTimerWidget(TimeSpan.FromMinutes(30));
         }
 
         private void Subtract10_Button_Click(object sender, EventArgs e)
         {
-
+            TotalTimerWidget.SubtractTimeFromActiveTimerWidget(TimeSpan.FromMinutes(10));
         }
 
         private void Add10_Button_Click(object sender, EventArgs e)
         {
-
+            TotalTimerWidget.AddTimeToActiveTimerWidget(TimeSpan.FromMinutes(10));
         }
 
         private void Add30_Button_Click(object sender, EventArgs e)
         {
-
+            TotalTimerWidget.AddTimeToActiveTimerWidget(TimeSpan.FromMinutes(30));
         }
         #endregion
 
