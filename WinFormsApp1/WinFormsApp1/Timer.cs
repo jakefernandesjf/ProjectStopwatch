@@ -32,12 +32,12 @@
         {
             if (IsTimerActive())
             {
-                // Do nothing
+                SetActiveStatus(false);
+                TimeElapsed = TimeElapsed + (DateTime.Now - StartPoint);
             }
             else
             {
-                SetActiveStatus(false);
-                TimeElapsed = TimeElapsed + (DateTime.Now - StartPoint);
+                // Do nothing
             }
         }
 
