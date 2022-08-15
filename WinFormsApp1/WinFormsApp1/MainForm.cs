@@ -7,7 +7,7 @@ namespace MainForm
     {
         public ProjectTimer()
         {
-            InitializeComponent();           
+            InitializeComponent();
 
             Project1 = new(Project1_TimeElapsed_Label, Project1_Name_Label);
             Project2 = new(Project2_TimeElapsed_Label, Project2_Name_Label);
@@ -46,11 +46,16 @@ namespace MainForm
         {
             TotalTimerWidget.SetInactiveWidgetStyle();
         }
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            TotalTimerWidget.UpdateTimeElapsed();
+            TotalTimerWidget.GetActiveTimerWidget().UpdateTimeElapsed();
+        }
 
         #region ToolStrip Menu
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            AddProjects addProjects = new();
+            AddProjects addProjects = new(this);
             addProjects.Show();
         }
 
@@ -134,29 +139,17 @@ namespace MainForm
         }
         #endregion SubTimers
 
-
-        #region Fields
-        private List<TimerWidget> SubTimerWidgets;
-        private TotalTimerWidget TotalTimerWidget;
-        private TimerWidget Project1;
-        private TimerWidget Project2;
-        private TimerWidget Project3;
-        private TimerWidget Project4;
-        private TimerWidget Project5;
-        private TimerWidget Project6;
-        private TimerWidget Project7;
-        private TimerWidget Project8;
+        #region Public Fields
+        public List<TimerWidget> SubTimerWidgets;
+        public TotalTimerWidget TotalTimerWidget;
+        public TimerWidget Project1;
+        public TimerWidget Project2;
+        public TimerWidget Project3;
+        public TimerWidget Project4;
+        public TimerWidget Project5;
+        public TimerWidget Project6;
+        public TimerWidget Project7;
+        public TimerWidget Project8;
         #endregion
-
-        private void timer1_Tick(object sender, EventArgs e)
-        {
-            List<TimerWidget> widgets = TotalTimerWidget.GetAllTimerWidgets();
-            widgets.Add(TotalTimerWidget);
-            foreach (TimerWidget widget in widgets)
-            {
-                var temp = widget;
-                Invoke(new Action(() => widget.UpdateTimeElapsed()));
-            }
-        }
     }
 }
