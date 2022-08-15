@@ -2,7 +2,7 @@
 
 namespace ProjectTimerApp
 {
-    internal class TimerWidget
+    public class TimerWidget
     {
         #region Constructors
         public TimerWidget(Label _timeElapsedLabel)
@@ -24,6 +24,7 @@ namespace ProjectTimerApp
             ProjectNameLabel = _projectNameLabel;
             Timer = new MyTimers.Timer(_projectNameLabel.Text);
             ActiveStatus = false;
+            _enabledStatus = true;
         }
         #endregion
 
@@ -52,8 +53,9 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void Enable()
         {
-            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Visible = true));
-            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Visible = true));
+            _enabledStatus = true;
+            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Visible = true));
+            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Visible = true));
         }
 
         /// <summary>
@@ -61,9 +63,9 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void Disable()
         {
-            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Visible = false));
-            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Visible = false));
-            Reset();
+            _enabledStatus = false;
+            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Visible = false));
+            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Visible = false));
         }
 
         /// <summary>
@@ -162,10 +164,12 @@ namespace ProjectTimerApp
         private Label ProjectNameLabel;
         private MyTimers.Timer Timer;
         private bool ActiveStatus;
+        private bool _enabledStatus;
+        public bool EnabledStatus { get { return _enabledStatus; } }
         #endregion
     }
 
-    internal class TotalTimerWidget : TimerWidget
+    public class TotalTimerWidget : TimerWidget
     {
         #region Constructors
         /// <summary>
@@ -238,34 +242,16 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
-        /// Removes the <paramref name="timerWidget"/> from the <c>TotalTimerWidget</c>.
+        /// Disables all sub-timer widgets and clears the sub-timer widget list.
         /// </summary>
-        /// <param name="timerWidget"></param>
-        /// <exception cref="ArgumentException"></exception>
-        public void RemoveTimerWidget(TimerWidget timerWidget)
+        public void DisableAllTimerWidgets()
         {
-            if (SubTimerWidgets.Contains(timerWidget) == false)
+            List<TimerWidget> list = GetAllTimerWidgets();
+            for (int i = 0; i < list.Count; i++)
             {
-                throw new ArgumentException($"SubTimerWidgets does not contain {timerWidget.GetProjectName()}");
-            }
-            else
-            {
+                TimerWidget timerWidget = list[i];
                 timerWidget.Disable();
-                SubTimerWidgets.Remove(timerWidget);
             }
-        }
-
-        /// <summary>
-        /// Removes all sub-timer widgets and resets the <c>TotalTimerWidget</c>.
-        /// </summary>
-        public void RemoveAllTimerWidgets()
-        {
-            Thread TotalTimerWidgetThread = new(() => base.Reset());
-            Thread SubTimerWidgetThread = new(() => DisableAllTimerWidgets());
-
-            TotalTimerWidgetThread.Start();
-            SubTimerWidgetThread.Start();
-            SetInactiveWidgetStyle();
         }
 
         /// <summary>
@@ -386,18 +372,6 @@ namespace ProjectTimerApp
         private void PauseActiveTimerWidget()
         {
             ActiveTimerWidget.Pause();
-        }
-
-        /// <summary>
-        /// Disables all sub-timer widgets and clears the sub-timer widget list.
-        /// </summary>
-        private void DisableAllTimerWidgets()
-        {
-            foreach(TimerWidget timerWidget in SubTimerWidgets)
-            {
-                timerWidget.Disable();
-                RemoveTimerWidget(timerWidget);
-            }
         }
 
         /// <summary>
