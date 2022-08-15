@@ -1,7 +1,4 @@
-using AddProjectsForm;
-using MyTimerWidgets;
-
-namespace MainForm
+namespace ProjectTimerApp
 {
     public partial class ProjectTimer : Form
     {

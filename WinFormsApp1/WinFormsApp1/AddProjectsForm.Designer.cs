@@ -1,4 +1,4 @@
-﻿namespace AddProjectsForm
+﻿namespace ProjectTimerApp
 {
     partial class AddProjects
     {

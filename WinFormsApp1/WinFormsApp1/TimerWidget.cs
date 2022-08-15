@@ -1,6 +1,6 @@
 ﻿using MyTimers;
 
-namespace MyTimerWidgets
+namespace ProjectTimerApp
 {
     internal class TimerWidget
     {

@@ -1,4 +1,4 @@
-using MainForm;
+using ProjectTimerApp;
 
 namespace WinFormsApp1
 {

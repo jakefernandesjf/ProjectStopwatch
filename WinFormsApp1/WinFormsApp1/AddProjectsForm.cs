@@ -1,4 +1,6 @@
-﻿namespace AddProjectsForm
+﻿using System.ComponentModel;
+
+namespace ProjectTimerApp
 {
     public partial class AddProjects : Form
     {

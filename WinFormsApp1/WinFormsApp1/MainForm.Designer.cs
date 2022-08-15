@@ -1,4 +1,4 @@
-﻿namespace MainForm
+﻿namespace ProjectTimerApp
 {
     partial class ProjectTimer
     {
