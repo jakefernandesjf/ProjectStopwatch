@@ -103,6 +103,7 @@
             this.SaveAndExit_Button.TabIndex = 6;
             this.SaveAndExit_Button.Text = "Save and Exit";
             this.SaveAndExit_Button.UseVisualStyleBackColor = true;
+            this.SaveAndExit_Button.Click += new System.EventHandler(this.SaveAndExit_Button_Click);
             // 
             // AddProjects
             // 
