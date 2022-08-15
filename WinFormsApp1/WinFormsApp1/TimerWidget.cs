@@ -129,24 +129,6 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
-        /// Gets the <c>Timer</c> of the widget.
-        /// </summary>
-        /// <returns></returns>
-        public MyTimers.Timer GetTimer()
-        {
-            return Timer;
-        }
-
-        /// <summary>
-        /// Sets the <c>Timer</c> of the widget.
-        /// </summary>
-        /// <param name="_timer"></param>
-        public void SetTimer(MyTimers.Timer _timer)
-        {
-            Timer = _timer;
-        }
-
-        /// <summary>
         /// Get Active status of timer widget.
         /// </summary>
         /// <returns></returns>
@@ -160,8 +142,8 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void SetActiveWidgetStyle()
         {
-            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Bold)));
-            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
+            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Bold)));
+            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
         }
 
         /// <summary>
@@ -169,8 +151,8 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void SetInactiveWidgetStyle()
         {
-            TimeElapsedLabel.Invoke(new Action(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Regular)));
-            ProjectNameLabel.Invoke(new Action(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
+            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Regular)));
+            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
         }
         #endregion
 
@@ -368,7 +350,7 @@ namespace ProjectTimerApp
         public override void SetActiveWidgetStyle()
         {
             Label timeElapsedLabel = GetTimeElapasedLabel();
-            timeElapsedLabel.Invoke(new Action(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Bold)));
+            timeElapsedLabel.Invoke(new MethodInvoker(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Bold)));
             
             SetButtonEnabledSetting(true);
         }
@@ -379,7 +361,7 @@ namespace ProjectTimerApp
         public override void SetInactiveWidgetStyle()
         {
             Label timeElapsedLabel = GetTimeElapasedLabel();
-            timeElapsedLabel.Invoke(new Action(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Regular)));
+            timeElapsedLabel.Invoke(new MethodInvoker(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Regular)));
             SetButtonEnabledSetting(false);
         }
         #endregion
@@ -434,7 +416,7 @@ namespace ProjectTimerApp
             };
             foreach (Button button in modifyTimeButtons)
             {
-                button.Invoke(new Action(() => button.Enabled = setting));
+                button.Invoke(new MethodInvoker(() => button.Enabled = setting));
             }
         }
         #endregion
