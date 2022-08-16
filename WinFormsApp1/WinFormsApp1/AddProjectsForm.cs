@@ -31,6 +31,7 @@ namespace ProjectTimerApp
                 if (_projectNames.Count < 8)
                 {
                     _projectNames.Add(NewProjectName_TextBox.Text);
+                    NewProjectName_TextBox.Text = String.Empty;
                 }
             }
         }

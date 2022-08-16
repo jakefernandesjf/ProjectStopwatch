@@ -47,13 +47,13 @@
             // 
             // EnterNewProjectName_Label
             // 
-            this.EnterNewProjectName_Label.AutoSize = true;
             this.EnterNewProjectName_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.EnterNewProjectName_Label.Location = new System.Drawing.Point(12, 9);
             this.EnterNewProjectName_Label.Name = "EnterNewProjectName_Label";
             this.EnterNewProjectName_Label.Size = new System.Drawing.Size(177, 21);
             this.EnterNewProjectName_Label.TabIndex = 1;
             this.EnterNewProjectName_Label.Text = "Enter new project name:";
+            this.EnterNewProjectName_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // CurrentProjects_ListBox
             // 
@@ -77,7 +77,6 @@
             // 
             // CurrentProjects_Label
             // 
-            this.CurrentProjects_Label.AutoSize = true;
             this.CurrentProjects_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CurrentProjects_Label.Location = new System.Drawing.Point(64, 72);
             this.CurrentProjects_Label.Name = "CurrentProjects_Label";
@@ -107,7 +106,7 @@
             // 
             // AddProjects
             // 
-            this.AcceptButton = this.SaveAndExit_Button;
+            this.AcceptButton = this.Add_Button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(404, 281);
@@ -118,10 +117,16 @@
             this.Controls.Add(this.CurrentProjects_ListBox);
             this.Controls.Add(this.EnterNewProjectName_Label);
             this.Controls.Add(this.NewProjectName_TextBox);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.MaximizeBox = false;
             this.MaximumSize = new System.Drawing.Size(420, 320);
+            this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(420, 320);
             this.Name = "AddProjects";
+            this.ShowIcon = false;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Add Projects";
+            this.TopMost = true;
             this.ResumeLayout(false);
             this.PerformLayout();
 
