@@ -40,36 +40,39 @@
             // NewProjectName_TextBox
             // 
             this.NewProjectName_TextBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.NewProjectName_TextBox.Location = new System.Drawing.Point(195, 6);
+            this.NewProjectName_TextBox.Location = new System.Drawing.Point(223, 8);
+            this.NewProjectName_TextBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.NewProjectName_TextBox.Name = "NewProjectName_TextBox";
-            this.NewProjectName_TextBox.Size = new System.Drawing.Size(195, 29);
+            this.NewProjectName_TextBox.Size = new System.Drawing.Size(222, 34);
             this.NewProjectName_TextBox.TabIndex = 0;
             // 
             // EnterNewProjectName_Label
             // 
-            this.EnterNewProjectName_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EnterNewProjectName_Label.Location = new System.Drawing.Point(12, 9);
+            this.EnterNewProjectName_Label.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.EnterNewProjectName_Label.Location = new System.Drawing.Point(12, 12);
             this.EnterNewProjectName_Label.Name = "EnterNewProjectName_Label";
-            this.EnterNewProjectName_Label.Size = new System.Drawing.Size(177, 21);
+            this.EnterNewProjectName_Label.Size = new System.Drawing.Size(204, 28);
             this.EnterNewProjectName_Label.TabIndex = 1;
             this.EnterNewProjectName_Label.Text = "Enter new project name:";
-            this.EnterNewProjectName_Label.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.EnterNewProjectName_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // CurrentProjects_ListBox
             // 
             this.CurrentProjects_ListBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CurrentProjects_ListBox.FormattingEnabled = true;
-            this.CurrentProjects_ListBox.ItemHeight = 21;
-            this.CurrentProjects_ListBox.Location = new System.Drawing.Point(195, 72);
+            this.CurrentProjects_ListBox.ItemHeight = 28;
+            this.CurrentProjects_ListBox.Location = new System.Drawing.Point(223, 96);
+            this.CurrentProjects_ListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CurrentProjects_ListBox.Name = "CurrentProjects_ListBox";
-            this.CurrentProjects_ListBox.Size = new System.Drawing.Size(195, 172);
+            this.CurrentProjects_ListBox.Size = new System.Drawing.Size(222, 228);
             this.CurrentProjects_ListBox.TabIndex = 2;
             // 
             // Add_Button
             // 
-            this.Add_Button.Location = new System.Drawing.Point(195, 41);
+            this.Add_Button.Location = new System.Drawing.Point(223, 55);
+            this.Add_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Add_Button.Name = "Add_Button";
-            this.Add_Button.Size = new System.Drawing.Size(75, 23);
+            this.Add_Button.Size = new System.Drawing.Size(86, 31);
             this.Add_Button.TabIndex = 3;
             this.Add_Button.Text = "Add";
             this.Add_Button.UseVisualStyleBackColor = true;
@@ -77,18 +80,20 @@
             // 
             // CurrentProjects_Label
             // 
-            this.CurrentProjects_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CurrentProjects_Label.Location = new System.Drawing.Point(64, 72);
+            this.CurrentProjects_Label.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.CurrentProjects_Label.Location = new System.Drawing.Point(12, 96);
             this.CurrentProjects_Label.Name = "CurrentProjects_Label";
-            this.CurrentProjects_Label.Size = new System.Drawing.Size(125, 21);
+            this.CurrentProjects_Label.Size = new System.Drawing.Size(204, 28);
             this.CurrentProjects_Label.TabIndex = 4;
             this.CurrentProjects_Label.Text = "Current Projects:";
+            this.CurrentProjects_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // Remove_Button
             // 
-            this.Remove_Button.Location = new System.Drawing.Point(195, 250);
+            this.Remove_Button.Location = new System.Drawing.Point(223, 333);
+            this.Remove_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Remove_Button.Name = "Remove_Button";
-            this.Remove_Button.Size = new System.Drawing.Size(75, 23);
+            this.Remove_Button.Size = new System.Drawing.Size(86, 31);
             this.Remove_Button.TabIndex = 5;
             this.Remove_Button.Text = "Remove";
             this.Remove_Button.UseVisualStyleBackColor = true;
@@ -96,9 +101,10 @@
             // 
             // SaveAndExit_Button
             // 
-            this.SaveAndExit_Button.Location = new System.Drawing.Point(276, 250);
+            this.SaveAndExit_Button.Location = new System.Drawing.Point(315, 333);
+            this.SaveAndExit_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.SaveAndExit_Button.Name = "SaveAndExit_Button";
-            this.SaveAndExit_Button.Size = new System.Drawing.Size(114, 23);
+            this.SaveAndExit_Button.Size = new System.Drawing.Size(130, 31);
             this.SaveAndExit_Button.TabIndex = 6;
             this.SaveAndExit_Button.Text = "Save and Exit";
             this.SaveAndExit_Button.UseVisualStyleBackColor = true;
@@ -107,9 +113,9 @@
             // AddProjects
             // 
             this.AcceptButton = this.Add_Button;
-            this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(404, 281);
+            this.ClientSize = new System.Drawing.Size(459, 364);
             this.Controls.Add(this.SaveAndExit_Button);
             this.Controls.Add(this.Remove_Button);
             this.Controls.Add(this.CurrentProjects_Label);
@@ -118,10 +124,11 @@
             this.Controls.Add(this.EnterNewProjectName_Label);
             this.Controls.Add(this.NewProjectName_TextBox);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(420, 320);
+            this.MaximumSize = new System.Drawing.Size(477, 411);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(420, 320);
+            this.MinimumSize = new System.Drawing.Size(477, 411);
             this.Name = "AddProjects";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
