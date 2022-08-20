@@ -305,7 +305,7 @@ namespace ProjectTimerApp
             SetActiveWidgetStyle();
 
             lastTimerWidget.UpdateTimeElapsed();
-            base.UpdateTimeElapsed();
+            UpdateTimeElapsed();
         }
 
         /// <summary>

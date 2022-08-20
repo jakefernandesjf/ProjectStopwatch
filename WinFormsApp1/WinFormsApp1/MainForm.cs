@@ -37,16 +37,28 @@ namespace ProjectTimerApp
                 TotalTimerPauseButton,
                 SubTimerWidgets
             );
+
+            _uITimer = new(TICK_VALUE);
         }
 
+        #region Form functions
         private void Form1_Load(object sender, EventArgs e)
         {
             TotalTimerWidget.SetInactiveWidgetStyle();
+
+            _uITimer.Start();
+            _uITimer.Elapsed += UITimer_Tick;
         }
-        private void timer1_Tick(object sender, EventArgs e)
+        private void UITimer_Tick(object sender, System.Timers.ElapsedEventArgs e)
         {
-            TotalTimerWidget.UpdateTimeElapsed();
+            Invoke(new MethodInvoker(() => TotalTimerWidget.UpdateTimeElapsed()));
         }
+
+        private void ProjectTimer_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            _uITimer.Stop();
+        }
+        #endregion
 
         #region ToolStrip Menu
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
@@ -149,9 +161,16 @@ namespace ProjectTimerApp
         public TimerWidget Project8;
         #endregion
 
+        #region Private Fields
+        private System.Timers.Timer _uITimer;
+        private const int TICK_VALUE = 1000;
+        #endregion
+
+        #region Helper Functions
         private void ClickProject(TimerWidget project)
         {
             TotalTimerWidget.SetAndStartActiveSubTimerWidget(project);
         }
+        #endregion
     }
 }

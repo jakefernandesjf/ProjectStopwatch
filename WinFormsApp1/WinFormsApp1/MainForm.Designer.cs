@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -57,7 +56,6 @@
             this.Subtract10_Button = new System.Windows.Forms.Button();
             this.Add10_Button = new System.Windows.Forms.Button();
             this.Add30_Button = new System.Windows.Forms.Button();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.menuStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -117,7 +115,7 @@
             // 
             this.TotalTimerTimeElapsedLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.TotalTimerTimeElapsedLabel.AutoEllipsis = true;
-            this.TotalTimerTimeElapsedLabel.Font = new System.Drawing.Font("Segoe UI", 32F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.TotalTimerTimeElapsedLabel.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.TotalTimerTimeElapsedLabel.Location = new System.Drawing.Point(16, 43);
             this.TotalTimerTimeElapsedLabel.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.TotalTimerTimeElapsedLabel.Name = "TotalTimerTimeElapsedLabel";
@@ -453,12 +451,6 @@
             this.Add30_Button.UseVisualStyleBackColor = false;
             this.Add30_Button.Click += new System.EventHandler(this.Add30_Button_Click);
             // 
-            // timer1
-            // 
-            this.timer1.Enabled = true;
-            this.timer1.Interval = 1000;
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
-            // 
             // ProjectTimer
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -496,6 +488,7 @@
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Project Timer";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProjectTimer_FormClosing);
             this.Load += new System.EventHandler(this.Form1_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
@@ -533,7 +526,6 @@
         private Button Subtract10_Button;
         private Button Add10_Button;
         private Button Add30_Button;
-        private System.Windows.Forms.Timer timer1;
         private ToolStripMenuItem version01ToolStripMenuItem;
     }
 }
