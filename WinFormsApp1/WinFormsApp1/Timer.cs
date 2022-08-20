@@ -8,18 +8,18 @@
         /// </summary>
         public Timer()
         {
-            StartPoint = DateTime.Now;
-            TimeElapsed = TimeSpan.Zero;
-            SetActiveStatus(false);
+            _startPoint = DateTime.Now;
+            _timeElapsed = TimeSpan.Zero;
+            _activeStatus = false;
         }
 
         /// <summary>
-        /// Creates a <c>Timer</c> object with name <paramref name="_name"/>.
+        /// Creates a <c>Timer</c> object with name <paramref name="name"/>.
         /// </summary>
-        /// <param name="_name">Name of the <c>Timer</c></param>
-        public Timer(string _name) : this()
+        /// <param name="name">Name of the <c>Timer</c></param>
+        public Timer(string name) : this()
         {
-            Name = _name;
+            _name = name;
         }
         #endregion
 
@@ -28,17 +28,13 @@
         /// <summary>
         /// Pauses the <c>Timer</c>.
         /// </summary>
-        public virtual void PauseTimer()
+        public void PauseTimer()
         {
-            var _nowDateTime = DateTime.Now;
+            var nowDateTime = DateTime.Now;
             if (IsTimerActive())
             {
-                SetActiveStatus(false);
-                TimeElapsed = TimeElapsed + (_nowDateTime - StartPoint);
-            }
-            else
-            {
-                // Do nothing
+                _activeStatus = false;
+                _timeElapsed += (nowDateTime - _startPoint);
             }
         }
 
@@ -47,26 +43,24 @@
         /// </summary>
         public void StartTimer()
         {
-            var _newStartPoint = DateTime.Now;
-            if (IsTimerActive())
+            var newStartPoint = DateTime.Now;
+            if (!IsTimerActive())
             {
-                // Do nothing
-            }
-            else
-            {
-                SetActiveStatus(true);
-                StartPoint = _newStartPoint;
+                _activeStatus = true;
+                _startPoint = newStartPoint;
             }
         }
 
         /// <summary>
         /// Resets the <c>Timer</c> to 0.
         /// </summary>
-        public virtual void ResetTimer()
+        public void ResetTimer()
         {
-            StartPoint = DateTime.Now;
-            TimeElapsed = TimeSpan.Zero;
-            SetActiveStatus(false);
+            var newStartPoint = DateTime.Now;
+            _activeStatus = false;
+            
+            _startPoint = newStartPoint;
+            _timeElapsed = TimeSpan.Zero;           
         }
 
         /// <summary>
@@ -75,14 +69,14 @@
         /// <returns>Time Elapsed <c>TimeSpan</c></returns>
         public TimeSpan GetTimeElapsed()
         {
-            var _nowDateTime = DateTime.Now;
+            var nowDateTime = DateTime.Now;
             if (IsTimerActive())
             {
-                return _nowDateTime - StartPoint + TimeElapsed;
+                return nowDateTime - _startPoint + _timeElapsed;
             }
             else
             {
-                return TimeElapsed;
+                return _timeElapsed;
             }
         }
 
@@ -92,39 +86,39 @@
         /// <returns><c>True</c> if the <c>Timer</c> is active, <c>False</c> if the <c>Timer</c> is inactive.</returns>
         public bool IsTimerActive()
         {
-            return ActiveStatus;
+            return _activeStatus;
         }
 
         /// <summary>
-        /// Adds <paramref name="_time"/> to the <c>Timer</c>.
+        /// Adds <paramref name="time"/> to the <c>Timer</c>.
         /// </summary>
-        /// <param name="_time">Time to be added to the timer.</param>
-        public void AddTime(TimeSpan _time)
+        /// <param name="time">Time to be added to the timer.</param>
+        public void AddTime(TimeSpan time)
         {
-            TimeElapsed = TimeElapsed + _time;
+            _timeElapsed += time;
         }
 
         /// <summary>
-        /// Subtracts <paramref name="_time"/> to the <c>Timer</c>.
+        /// Subtracts <paramref name="time"/> to the <c>Timer</c>.
         /// </summary>
-        /// <param name="_time">Time to be subtracted from the timer.</param>
-        public void SubtractTime(TimeSpan _time)
+        /// <param name="time">Time to be subtracted from the timer.</param>
+        public void SubtractTime(TimeSpan time)
         {
-            TimeSpan newTimeElapsed = new[] { TimeSpan.Zero, TimeElapsed - _time }.Max();
+            TimeSpan newTimeElapsed = new[] { TimeSpan.Zero, _timeElapsed - time }.Max();
             if (newTimeElapsed == TimeSpan.Zero)
             {
-                StartPoint = DateTime.Now;
+                _startPoint = DateTime.Now;
             }
-            TimeElapsed = newTimeElapsed;
+            _timeElapsed = newTimeElapsed;
         }
 
         /// <summary>
         /// Sets the name of the <c>Timer</c>.
         /// </summary>
-        /// <param name="_name">The name of the timer.</param>
-        public void SetName(string _name)
+        /// <param name="name">The name of the timer.</param>
+        public void SetName(string name)
         {
-            Name = _name;
+            _name = name;
         }
 
         /// <summary>
@@ -133,28 +127,16 @@
         /// <returns>Name of the timer</returns>
         public string GetName()
         {
-            return Name;
-        }
-        #endregion
-
-
-        #region Private Methods
-        /// <summary>
-        /// Sets the <param>ActiveStatus</param> to <paramref name="_status"/>.
-        /// </summary>
-        /// <param name="_status">Status of the <c>Timer</c></param>
-        private void SetActiveStatus(bool _status)
-        {
-            ActiveStatus = _status;
+            return _name;
         }
         #endregion
 
 
         #region Private Fields
-        private DateTime StartPoint;
-        private TimeSpan TimeElapsed;
-        private bool ActiveStatus;
-        private string Name = "";
+        private DateTime _startPoint;
+        private TimeSpan _timeElapsed;
+        private bool _activeStatus;
+        private string _name = "";
         #endregion
     }
 }

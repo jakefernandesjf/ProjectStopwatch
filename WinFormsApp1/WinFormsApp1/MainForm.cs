@@ -2,6 +2,7 @@ namespace ProjectTimerApp
 {
     public partial class ProjectTimer : Form
     {
+        #region Constructor
         public ProjectTimer()
         {
             InitializeComponent();
@@ -40,6 +41,10 @@ namespace ProjectTimerApp
 
             _uITimer = new(TICK_VALUE);
         }
+        #endregion
+
+
+        #region UI Methods
 
         #region Form functions
         private void Form1_Load(object sender, EventArgs e)
@@ -49,7 +54,7 @@ namespace ProjectTimerApp
             _uITimer.Start();
             _uITimer.Elapsed += UITimer_Tick;
         }
-        private void UITimer_Tick(object sender, System.Timers.ElapsedEventArgs e)
+        private void UITimer_Tick(object? sender, System.Timers.ElapsedEventArgs e)
         {
             Invoke(new MethodInvoker(() => TotalTimerWidget.UpdateTimeElapsed()));
         }
@@ -60,16 +65,12 @@ namespace ProjectTimerApp
         }
         #endregion
 
+
         #region ToolStrip Menu
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AddProjects addProjects = new(this);
             addProjects.Show();
-        }
-
-        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-
         }
         #endregion
 
@@ -148,6 +149,17 @@ namespace ProjectTimerApp
         }
         #endregion SubTimers
 
+
+        #region Helper Functions
+        private void ClickProject(TimerWidget project)
+        {
+            TotalTimerWidget.SetAndStartActiveSubTimerWidget(project);
+        }
+        #endregion
+
+        #endregion
+
+
         #region Public Fields
         public List<TimerWidget> SubTimerWidgets;
         public TotalTimerWidget TotalTimerWidget;
@@ -161,16 +173,10 @@ namespace ProjectTimerApp
         public TimerWidget Project8;
         #endregion
 
-        #region Private Fields
-        private System.Timers.Timer _uITimer;
-        private const int TICK_VALUE = 1000;
-        #endregion
 
-        #region Helper Functions
-        private void ClickProject(TimerWidget project)
-        {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(project);
-        }
+        #region Private Fields
+        private readonly System.Timers.Timer _uITimer;
+        private const int TICK_VALUE = 1000;
         #endregion
     }
 }

@@ -4,6 +4,7 @@ namespace ProjectTimerApp
 {
     public partial class AddProjects : Form
     {
+        #region Constructor
         public AddProjects(ProjectTimer mainForm)
         {
             InitializeComponent();
@@ -19,19 +20,18 @@ namespace ProjectTimerApp
             }
             CurrentProjects_ListBox.DataSource = _projectNames;
         }
+        #endregion
 
+
+        #region UI Methods
         private void Add_Button_Click(object sender, EventArgs e)
         {
-            if (NewProjectName_TextBox.Text.Equals(String.Empty))
-            {
-                // Do Nothing
-            }
-            else
-            {
+            if (NewProjectName_TextBox.Text != string.Empty)
+            { 
                 if (_projectNames.Count < 8)
                 {
                     _projectNames.Add(NewProjectName_TextBox.Text);
-                    NewProjectName_TextBox.Text = String.Empty;
+                    NewProjectName_TextBox.Text = string.Empty;
                 }
             }
         }
@@ -56,12 +56,14 @@ namespace ProjectTimerApp
                     _mainForm.SubTimerWidgets[i].Enable();
                 }
             }
-            this.Close();
+            Close();
         }
+        #endregion
+
 
         #region Private Fields
-        private ProjectTimer _mainForm;
-        private BindingList<String> _projectNames;
+        private readonly ProjectTimer _mainForm;
+        private readonly BindingList<string> _projectNames;
         #endregion
     }
 }

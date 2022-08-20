@@ -5,25 +5,25 @@ namespace ProjectTimerApp
     public class TimerWidget
     {
         #region Constructors
-        public TimerWidget(Label _timeElapsedLabel)
+        public TimerWidget(Label timeElapsedLabel)
         {
-            TimeElapsedLabel = _timeElapsedLabel;
-            ProjectNameLabel = new Label();
-            Timer = new MyTimers.Timer("Timer");
-            ActiveStatus = false;
+            _timeElapsedLabel = timeElapsedLabel;
+            _projectNameLabel = new Label();
+            _timer = new MyTimers.Timer("Timer");
+            _activeStatus = false;
         }
 
         /// <summary>
-        /// Creates a <c>TimerWidget</c> with TimeElapsed Label <paramref name="_timeElapsedLabel"/> and Project Name Label <paramref name="_projectNameLabel"/>
+        /// Creates a <c>TimerWidget</c> with TimeElapsed Label <paramref name="timeElapsedLabel"/> and Project Name Label <paramref name="projectNameLabel"/>
         /// </summary>
-        /// <param name="_timeElapsedLabel"></param>
-        /// <param name="_projectNameLabel"></param>
-        public TimerWidget(Label _timeElapsedLabel, Label _projectNameLabel)
+        /// <param name="timeElapsedLabel"></param>
+        /// <param name="projectNameLabel"></param>
+        public TimerWidget(Label timeElapsedLabel, Label projectNameLabel)
         {
-            TimeElapsedLabel = _timeElapsedLabel;
-            ProjectNameLabel = _projectNameLabel;
-            Timer = new MyTimers.Timer(_projectNameLabel.Text);
-            ActiveStatus = false;
+            _timeElapsedLabel = timeElapsedLabel;
+            _projectNameLabel = projectNameLabel;
+            _timer = new MyTimers.Timer(projectNameLabel.Text);
+            _activeStatus = false;
             _enabledStatus = true;
         }
         #endregion
@@ -35,8 +35,8 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void Start()
         {
-            Timer.StartTimer();
-            ActiveStatus = true;
+            _timer.StartTimer();
+            _activeStatus = true;
         }
 
         /// <summary>
@@ -44,28 +44,28 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void Pause()
         {
-            Timer.PauseTimer();
-            ActiveStatus = false;
+            _timer.PauseTimer();
+            _activeStatus = false;
         }
 
         /// <summary>
         /// Enables TimerWidget
         /// </summary>
-        public virtual void Enable()
+        public void Enable()
         {
             _enabledStatus = true;
-            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Visible = true));
-            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Visible = true));
+            _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Visible = true));
+            _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Visible = true));
         }
 
         /// <summary>
         /// Disables TimerWidget
         /// </summary>
-        public virtual void Disable()
+        public void Disable()
         {
             _enabledStatus = false;
-            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Visible = false));
-            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Visible = false));
+            _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Visible = false));
+            _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Visible = false));
         }
 
         /// <summary>
@@ -73,35 +73,35 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void Reset()
         {
-            Timer.ResetTimer();
+            _timer.ResetTimer();
             SetInactiveWidgetStyle();
         }
 
         /// <summary>
-        /// Adds <paramref name="_time"/> to timer.
+        /// Adds <paramref name="time"/> to timer.
         /// </summary>
-        /// <param name="_time"></param>
-        public void AddTime(TimeSpan _time)
+        /// <param name="time"></param>
+        public void AddTime(TimeSpan time)
         {
-            Timer.AddTime(_time);
+            _timer.AddTime(time);
         }
 
         /// <summary>
-        /// Subtracts <paramref name="_time"/> from timer.
+        /// Subtracts <paramref name="time"/> from timer.
         /// </summary>
-        /// <param name="_time"></param>
-        public void SubtractTime(TimeSpan _time)
+        /// <param name="time"></param>
+        public void SubtractTime(TimeSpan time)
         {
-            Timer.SubtractTime(_time);
+            _timer.SubtractTime(time);
         }
 
         /// <summary>
-        /// Sets project name to <paramref name="_name"/>.
+        /// Sets project name to <paramref name="name"/>.
         /// </summary>
-        /// <param name="_name"></param>
-        public void SetProjectName(string _name)
+        /// <param name="name"></param>
+        public void SetProjectName(string name)
         {
-            ProjectNameLabel.Text = _name;
+            _projectNameLabel.Text = name;
         }
 
         /// <summary>
@@ -110,7 +110,7 @@ namespace ProjectTimerApp
         /// <returns></returns>
         public string GetProjectName()
         {
-            return ProjectNameLabel.Text;
+            return _projectNameLabel.Text;
         }
 
         /// <summary>
@@ -118,7 +118,7 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void UpdateTimeElapsed()
         {
-            TimeElapsedLabel.Text = Timer.GetTimeElapsed().ToString(@"hh\:mm\:ss");
+            _timeElapsedLabel.Text = _timer.GetTimeElapsed().ToString(TIMESPAN_STRING_FORMAT);
         }
 
         /// <summary>
@@ -127,7 +127,7 @@ namespace ProjectTimerApp
         /// <returns></returns>
         public ref Label GetTimeElapasedLabel()
         {
-            return ref TimeElapsedLabel;
+            return ref _timeElapsedLabel;
         }
 
         /// <summary>
@@ -136,7 +136,7 @@ namespace ProjectTimerApp
         /// <returns></returns>
         public bool GetActiveStatus()
         {
-            return ActiveStatus;
+            return _activeStatus;
         }
 
         /// <summary>
@@ -144,8 +144,8 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void SetActiveWidgetStyle()
         {
-            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Bold)));
-            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Bold)));
+            _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Font = new Font(_timeElapsedLabel.Font, FontStyle.Bold)));
+            _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Font = new Font(_projectNameLabel.Font, FontStyle.Bold)));
         }
 
         /// <summary>
@@ -153,19 +153,24 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void SetInactiveWidgetStyle()
         {
-            TimeElapsedLabel.Invoke(new MethodInvoker(() => TimeElapsedLabel.Font = new Font(TimeElapsedLabel.Font, FontStyle.Regular)));
-            ProjectNameLabel.Invoke(new MethodInvoker(() => ProjectNameLabel.Font = new Font(ProjectNameLabel.Font, FontStyle.Regular)));
+            _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Font = new Font(_timeElapsedLabel.Font, FontStyle.Regular)));
+            _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Font = new Font(_projectNameLabel.Font, FontStyle.Regular)));
         }
         #endregion
 
 
-        #region Fields
-        private Label TimeElapsedLabel;
-        private Label ProjectNameLabel;
-        private MyTimers.Timer Timer;
-        private bool ActiveStatus;
-        private bool _enabledStatus;
+        #region Public Fields
         public bool EnabledStatus { get { return _enabledStatus; } }
+        #endregion
+
+
+        #region Private Fields
+        private Label _timeElapsedLabel;
+        private Label _projectNameLabel;
+        private readonly MyTimers.Timer _timer;
+        private bool _activeStatus;
+        private bool _enabledStatus;
+        private const string TIMESPAN_STRING_FORMAT = @"hh\:mm\:ss";
         #endregion
     }
 
@@ -175,30 +180,30 @@ namespace ProjectTimerApp
         /// <summary>
         /// Creates a <c>TotalTimerWidget</c> object.
         /// </summary>
-        /// <param name="_timeElapsedLabel"></param>
+        /// <param name="timeElapsedLabel"></param>
         /// <param name="subtract30Button"></param>
         /// <param name="subtract10Button"></param>
         /// <param name="add10Button"></param>
         /// <param name="add30Button"></param>
         /// <param name="pauseButton"></param>
-        /// <param name="_subTimerWidgets"></param>
+        /// <param name="subTimerWidgets"></param>
         public TotalTimerWidget(
-            Label _timeElapsedLabel, 
+            Label timeElapsedLabel, 
             Button subtract30Button, 
             Button subtract10Button,
             Button add10Button,
             Button add30Button,
             Button pauseButton,
-            List<TimerWidget> _subTimerWidgets) 
-            :base(_timeElapsedLabel)
+            List<TimerWidget> subTimerWidgets) 
+            :base(timeElapsedLabel)
         {
-            SubTimerWidgets = _subTimerWidgets;
-            ActiveTimerWidget = _subTimerWidgets.First();
-            Subtract10Button = subtract10Button;
-            Subtract30Button = subtract30Button;
-            Add10Button = add10Button;
-            Add30Button = add30Button;
-            PauseButton = pauseButton;
+            _subTimerWidgets = subTimerWidgets;
+            _activeTimerWidget = subTimerWidgets.First();
+            _subtract10Button = subtract10Button;
+            _subtract30Button = subtract30Button;
+            _add10Button = add10Button;
+            _add30Button = add30Button;
+            _pauseButton = pauseButton;
         }
         #endregion
 
@@ -210,7 +215,7 @@ namespace ProjectTimerApp
         public override void Pause()
         {
             Thread TotalTimerWidgetThread = new(() => base.Pause());
-            Thread ActiveSubTimerWidgetThread = new(() => ActiveTimerWidget.Pause());
+            Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.Pause());
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
@@ -226,7 +231,7 @@ namespace ProjectTimerApp
         {
             base.Reset();
 
-            foreach(TimerWidget timerWidget in SubTimerWidgets)
+            foreach(TimerWidget timerWidget in _subTimerWidgets)
             {
                 timerWidget.Reset();
             }
@@ -238,7 +243,7 @@ namespace ProjectTimerApp
         /// <param name="timerWidget"></param>
         public void AddTimerWidget(TimerWidget timerWidget)
         {
-            SubTimerWidgets.Add(timerWidget);
+            _subTimerWidgets.Add(timerWidget);
         }
 
         /// <summary>
@@ -260,7 +265,7 @@ namespace ProjectTimerApp
         /// <returns></returns>
         public List<TimerWidget> GetAllTimerWidgets()
         {
-            return SubTimerWidgets;
+            return _subTimerWidgets;
         }
 
         /// <summary>
@@ -273,10 +278,10 @@ namespace ProjectTimerApp
             TimerWidget lastTimerWidget = GetActiveTimerWidget();
             if (lastTimerWidget != timerWidget)
             {               
-                ActiveTimerWidget = timerWidget;
+                _activeTimerWidget = timerWidget;
 
                 Thread TotalTimerWidgetThread = new(() => Start());
-                Thread StartActiveTimerWidgetThread = new(() => ActiveTimerWidget.Start());
+                Thread StartActiveTimerWidgetThread = new(() => _activeTimerWidget.Start());
                 Thread PauseLastTimerWidgetThread = new(() => lastTimerWidget.Pause());
 
                 TotalTimerWidgetThread.Start();
@@ -289,14 +294,14 @@ namespace ProjectTimerApp
             else if (lastTimerWidget == timerWidget && !GetActiveStatus())
             {
                 Thread TotalTimerWidgetThread = new(() => Start());
-                Thread StartActiveTimerWidgetThread = new(() => ActiveTimerWidget.Start());
+                Thread StartActiveTimerWidgetThread = new(() => _activeTimerWidget.Start());
 
                 TotalTimerWidgetThread.Start();
                 StartActiveTimerWidgetThread.Start();
 
                 UpdateTimeElapsed();
             }
-            else if (SubTimerWidgets.Contains(timerWidget) == false)
+            else if (_subTimerWidgets.Contains(timerWidget) == false)
             {
                 throw new ArgumentException($"SubTimerWidgets does not contain {timerWidget.GetProjectName()}");
             }
@@ -314,7 +319,7 @@ namespace ProjectTimerApp
         /// <returns></returns>
         public ref TimerWidget GetActiveTimerWidget()
         {
-            return ref ActiveTimerWidget;
+            return ref _activeTimerWidget;
         }
 
         /// <summary>
@@ -323,8 +328,8 @@ namespace ProjectTimerApp
         /// <param name="time"></param>
         public void AddTimeToActiveTimerWidget(TimeSpan time)
         {
-            Thread TotalTimerWidgetThread = new(() => base.AddTime(time));
-            Thread ActiveSubTimerWidgetThread = new(() => ActiveTimerWidget.AddTime(time));
+            Thread TotalTimerWidgetThread = new(() => AddTime(time));
+            Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.AddTime(time));
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
@@ -338,8 +343,8 @@ namespace ProjectTimerApp
         /// <param name="time"></param>
         public void SubtractTimeFromActiveTimerWidget(TimeSpan time)
         {
-            Thread TotalTimerWidgetThread = new(() => base.SubtractTime(time));
-            Thread ActiveSubTimerWidgetThread = new(() => ActiveTimerWidget.SubtractTime(time));
+            Thread TotalTimerWidgetThread = new(() => SubtractTime(time));
+            Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.SubtractTime(time));
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
@@ -372,7 +377,7 @@ namespace ProjectTimerApp
         /// </summary>
         public override void UpdateTimeElapsed()
         {
-            ActiveTimerWidget.UpdateTimeElapsed();
+            _activeTimerWidget.UpdateTimeElapsed();
             base.UpdateTimeElapsed();
         }
         #endregion
@@ -385,13 +390,13 @@ namespace ProjectTimerApp
         /// <param name="setting"></param>
         private void SetButtonEnabledSetting(bool setting)
         {
-            List<Button> modifyTimeButtons = new List<Button>
+            List<Button> modifyTimeButtons = new()
             {
-                Subtract10Button,
-                Subtract30Button,
-                Add10Button,
-                Add30Button,
-                PauseButton,
+                _subtract10Button,
+                _subtract30Button,
+                _add10Button,
+                _add30Button,
+                _pauseButton,
             };
             foreach (Button button in modifyTimeButtons)
             {
@@ -402,13 +407,13 @@ namespace ProjectTimerApp
 
 
         #region Fields
-        private List<TimerWidget> SubTimerWidgets;
-        private TimerWidget ActiveTimerWidget;
-        private Button Subtract30Button;
-        private Button Subtract10Button;
-        private Button Add10Button;
-        private Button Add30Button;
-        private Button PauseButton;
+        private List<TimerWidget> _subTimerWidgets;
+        private TimerWidget _activeTimerWidget;
+        private readonly Button _subtract30Button;
+        private readonly Button _subtract10Button;
+        private readonly Button _add10Button;
+        private readonly Button _add30Button;
+        private readonly Button _pauseButton;
         #endregion
     }
 }

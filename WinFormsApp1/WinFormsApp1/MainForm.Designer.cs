@@ -101,14 +101,13 @@
             this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.version01ToolStripMenuItem});
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(133, 26);
+            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // version01ToolStripMenuItem
             // 
             this.version01ToolStripMenuItem.Name = "version01ToolStripMenuItem";
-            this.version01ToolStripMenuItem.Size = new System.Drawing.Size(163, 26);
+            this.version01ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.version01ToolStripMenuItem.Text = "Version 0.2";
             // 
             // TotalTimerTimeElapsedLabel
