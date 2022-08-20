@@ -46,7 +46,6 @@ namespace ProjectTimerApp
         private void timer1_Tick(object sender, EventArgs e)
         {
             TotalTimerWidget.UpdateTimeElapsed();
-            TotalTimerWidget.GetActiveTimerWidget().UpdateTimeElapsed();
         }
 
         #region ToolStrip Menu
@@ -67,6 +66,7 @@ namespace ProjectTimerApp
         private void TotalTimerPause_Click(object sender, EventArgs e)
         {
             TotalTimerWidget.Pause();
+            TotalTimerWidget.UpdateTimeElapsed();
         }
         #endregion
 
@@ -97,42 +97,42 @@ namespace ProjectTimerApp
         #region SubTimers
         private void Project1_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project1);
+            ClickProject(Project1);
         }
 
         private void Project2_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project2);
+            ClickProject(Project2);
         }
 
         private void Project3_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project3);
+            ClickProject(Project3);
         }
 
         private void Project4_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project4);
+            ClickProject(Project4);
         }
 
         private void Project5_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project5);
+            ClickProject(Project5);
         }
 
         private void Project6_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project6);
+            ClickProject(Project6);
         }
 
         private void Project7_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project7);
+            ClickProject(Project7);
         }
 
         private void Project8_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(Project8);
+            ClickProject(Project8);
         }
         #endregion SubTimers
 
@@ -148,5 +148,10 @@ namespace ProjectTimerApp
         public TimerWidget Project7;
         public TimerWidget Project8;
         #endregion
+
+        private void ClickProject(TimerWidget project)
+        {
+            TotalTimerWidget.SetAndStartActiveSubTimerWidget(project);
+        }
     }
 }

@@ -30,10 +30,11 @@
         /// </summary>
         public virtual void PauseTimer()
         {
+            var _nowDateTime = DateTime.Now;
             if (IsTimerActive())
             {
                 SetActiveStatus(false);
-                TimeElapsed = TimeElapsed + (DateTime.Now - StartPoint);
+                TimeElapsed = TimeElapsed + (_nowDateTime - StartPoint);
             }
             else
             {
@@ -74,9 +75,10 @@
         /// <returns>Time Elapsed <c>TimeSpan</c></returns>
         public TimeSpan GetTimeElapsed()
         {
+            var _nowDateTime = DateTime.Now;
             if (IsTimerActive())
             {
-                return DateTime.Now - StartPoint + TimeElapsed;
+                return _nowDateTime - StartPoint + TimeElapsed;
             }
             else
             {

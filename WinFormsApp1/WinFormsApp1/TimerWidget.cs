@@ -116,7 +116,7 @@ namespace ProjectTimerApp
         /// <summary>
         /// Updates the time Elapsed.
         /// </summary>
-        public void UpdateTimeElapsed()
+        public virtual void UpdateTimeElapsed()
         {
             TimeElapsedLabel.Text = Timer.GetTimeElapsed().ToString(@"hh\:mm\:ss");
         }
@@ -210,7 +210,7 @@ namespace ProjectTimerApp
         public override void Pause()
         {
             Thread TotalTimerWidgetThread = new(() => base.Pause());
-            Thread ActiveSubTimerWidgetThread = new(() => PauseActiveTimerWidget());
+            Thread ActiveSubTimerWidgetThread = new(() => ActiveTimerWidget.Pause());
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
@@ -270,29 +270,42 @@ namespace ProjectTimerApp
         /// <exception cref="ArgumentException"></exception>
         public void SetAndStartActiveSubTimerWidget(TimerWidget timerWidget)
         {
-            if (SubTimerWidgets.Contains(timerWidget) == false)
-            {
-                throw new ArgumentException($"SubTimerWidgets does not contain {timerWidget.GetProjectName()}");
-            }
-            else if (GetActiveTimerWidget() == timerWidget)
-            {
-                StartActiveTimerWidget();
-            }
-            else
-            {
-                TimerWidget lastTimerWidget = GetActiveTimerWidget();
+            TimerWidget lastTimerWidget = GetActiveTimerWidget();
+            if (lastTimerWidget != timerWidget)
+            {               
                 ActiveTimerWidget = timerWidget;
 
-                Thread StartActiveTimerWidgetThread = new(() => StartActiveTimerWidget());
+                Thread TotalTimerWidgetThread = new(() => Start());
+                Thread StartActiveTimerWidgetThread = new(() => ActiveTimerWidget.Start());
                 Thread PauseLastTimerWidgetThread = new(() => lastTimerWidget.Pause());
 
+                TotalTimerWidgetThread.Start();
                 StartActiveTimerWidgetThread.Start();
                 PauseLastTimerWidgetThread.Start();
 
+                UpdateTimeElapsed();
                 lastTimerWidget.SetInactiveWidgetStyle();
             }
+            else if (lastTimerWidget == timerWidget && !GetActiveStatus())
+            {
+                Thread TotalTimerWidgetThread = new(() => Start());
+                Thread StartActiveTimerWidgetThread = new(() => ActiveTimerWidget.Start());
+
+                TotalTimerWidgetThread.Start();
+                StartActiveTimerWidgetThread.Start();
+
+                UpdateTimeElapsed();
+            }
+            else if (SubTimerWidgets.Contains(timerWidget) == false)
+            {
+                throw new ArgumentException($"SubTimerWidgets does not contain {timerWidget.GetProjectName()}");
+            }
+            
             GetActiveTimerWidget().SetActiveWidgetStyle();
             SetActiveWidgetStyle();
+
+            lastTimerWidget.UpdateTimeElapsed();
+            base.UpdateTimeElapsed();
         }
 
         /// <summary>
@@ -315,6 +328,8 @@ namespace ProjectTimerApp
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
+
+            UpdateTimeElapsed();
         }
 
         /// <summary>
@@ -328,6 +343,8 @@ namespace ProjectTimerApp
 
             TotalTimerWidgetThread.Start();
             ActiveSubTimerWidgetThread.Start();
+
+            UpdateTimeElapsed();
         }
 
         /// <summary>
@@ -336,8 +353,7 @@ namespace ProjectTimerApp
         public override void SetActiveWidgetStyle()
         {
             Label timeElapsedLabel = GetTimeElapasedLabel();
-            timeElapsedLabel.Invoke(new MethodInvoker(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Bold)));
-            
+            timeElapsedLabel.Invoke(new MethodInvoker(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Bold)));            
             SetButtonEnabledSetting(true);
         }
 
@@ -350,30 +366,19 @@ namespace ProjectTimerApp
             timeElapsedLabel.Invoke(new MethodInvoker(() => timeElapsedLabel.Font = new Font(timeElapsedLabel.Font, FontStyle.Regular)));
             SetButtonEnabledSetting(false);
         }
+
+        /// <summary>
+        /// Updates the time Elapsed.
+        /// </summary>
+        public override void UpdateTimeElapsed()
+        {
+            ActiveTimerWidget.UpdateTimeElapsed();
+            base.UpdateTimeElapsed();
+        }
         #endregion
 
 
         #region Private Methods
-        /// <summary>
-        /// Starts the active sub-timer widget.
-        /// </summary>
-        private void StartActiveTimerWidget()
-        {
-            Thread TotalTimerWidgetThread = new(() => base.Start());
-            Thread ActiveSubTimerWidgetThread = new(() => ActiveTimerWidget.Start());
-
-            TotalTimerWidgetThread.Start();
-            ActiveSubTimerWidgetThread.Start();
-        }
-
-        /// <summary>
-        /// Pauses the active sub-timer widget.
-        /// </summary>
-        private void PauseActiveTimerWidget()
-        {
-            ActiveTimerWidget.Pause();
-        }
-
         /// <summary>
         /// Sets all time-modification buttons to enabled if <paramref name="setting"/> is true, disabled otherwise.
         /// </summary>
