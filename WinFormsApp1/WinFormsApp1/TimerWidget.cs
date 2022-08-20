@@ -131,6 +131,15 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
+        /// Gets the time elapsed of the timer widget.
+        /// </summary>
+        /// <returns>Time elapsed</returns>
+        public TimeSpan GetTimeElapsed()
+        {
+            return _timer.GetTimeElapsed();
+        }
+
+        /// <summary>
         /// Get Active status of timer widget.
         /// </summary>
         /// <returns></returns>
@@ -343,13 +352,16 @@ namespace ProjectTimerApp
         /// <param name="time"></param>
         public void SubtractTimeFromActiveTimerWidget(TimeSpan time)
         {
-            Thread TotalTimerWidgetThread = new(() => SubtractTime(time));
-            Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.SubtractTime(time));
+            if (_activeTimerWidget.GetTimeElapsed() > time)
+            {
+                Thread TotalTimerWidgetThread = new(() => SubtractTime(time));
+                Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.SubtractTime(time));
 
-            TotalTimerWidgetThread.Start();
-            ActiveSubTimerWidgetThread.Start();
+                TotalTimerWidgetThread.Start();
+                ActiveSubTimerWidgetThread.Start();
 
-            UpdateTimeElapsed();
+                UpdateTimeElapsed();
+            }
         }
 
         /// <summary>
