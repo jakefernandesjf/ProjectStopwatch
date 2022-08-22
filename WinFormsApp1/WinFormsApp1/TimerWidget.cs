@@ -5,12 +5,14 @@ namespace ProjectTimerApp
     public class TimerWidget
     {
         #region Constructors
-        public TimerWidget(Label timeElapsedLabel)
+        public TimerWidget(Label timeElapsedLabel, TimerWidgetProperties properties)
         {
             _timeElapsedLabel = timeElapsedLabel;
             _projectNameLabel = new Label();
-            _timer = new MyTimers.Timer("Timer");
+            _timer = new MyTimers.Timer(properties.Name);
             _activeStatus = false;
+            _enabledStatus = properties.IsEnabled;
+            _timer.AddTime(properties.TimeElapsed);
         }
 
         /// <summary>
@@ -25,6 +27,24 @@ namespace ProjectTimerApp
             _timer = new MyTimers.Timer(projectNameLabel.Text);
             _activeStatus = false;
             _enabledStatus = true;
+        }
+
+        /// <summary>
+        /// Creates a <c>TimerWidget</c> with TimeElapsed Label <paramref name="timeElapsedLabel"/> and Project Name Label <paramref name="projectNameLabel"/>. Sets properties from <paramref name="properties"/>.
+        /// </summary>
+        /// <param name="timeElapsedLabel"></param>
+        /// <param name="projectNameLabel"></param>
+        /// <param name="properties"></param>
+        public TimerWidget(Label timeElapsedLabel, Label projectNameLabel, TimerWidgetProperties properties)
+        {
+            _timeElapsedLabel = timeElapsedLabel;
+            _projectNameLabel = projectNameLabel;
+            _timer = new MyTimers.Timer();
+            _activeStatus = false;
+
+            SetProjectName(properties.Name);
+            AddTime(properties.TimeElapsed);         
+            _enabledStatus = properties.IsEnabled;
         }
         #endregion
 
@@ -75,6 +95,7 @@ namespace ProjectTimerApp
         {
             _timer.ResetTimer();
             SetInactiveWidgetStyle();
+            UpdateTimeElapsed();
         }
 
         /// <summary>
@@ -165,11 +186,26 @@ namespace ProjectTimerApp
             _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Font = new Font(_timeElapsedLabel.Font, FontStyle.Regular)));
             _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Font = new Font(_projectNameLabel.Font, FontStyle.Regular)));
         }
+
+        /// <summary>
+        /// Loads <paramref name="properties"/> to timer widget.
+        /// </summary>
+        /// <param name="properties"></param>
+        public void LoadProperties(TimerWidgetProperties properties)
+        {
+            SetProjectName(properties.Name);
+            _enabledStatus = properties.IsEnabled;
+            _timer.ResetTimer();
+            _timer.AddTime(properties.TimeElapsed);
+
+            if (!_enabledStatus) { Disable(); }
+            else { Enable(); }
+        }
         #endregion
 
 
         #region Public Fields
-        public bool EnabledStatus { get { return _enabledStatus; } }
+        public bool IsEnabled { get { return _enabledStatus; } }
         #endregion
 
 
@@ -203,8 +239,9 @@ namespace ProjectTimerApp
             Button add10Button,
             Button add30Button,
             Button pauseButton,
-            List<TimerWidget> subTimerWidgets) 
-            :base(timeElapsedLabel)
+            List<TimerWidget> subTimerWidgets,
+            TimerWidgetProperties timerWidgetProperties) 
+            :base(timeElapsedLabel, timerWidgetProperties)
         {
             _subTimerWidgets = subTimerWidgets;
             _activeTimerWidget = subTimerWidgets.First();
@@ -244,6 +281,8 @@ namespace ProjectTimerApp
             {
                 timerWidget.Reset();
             }
+
+            UpdateTimeElapsed();
         }
 
         /// <summary>
@@ -260,10 +299,8 @@ namespace ProjectTimerApp
         /// </summary>
         public void DisableAllTimerWidgets()
         {
-            List<TimerWidget> list = GetAllTimerWidgets();
-            for (int i = 0; i < list.Count; i++)
+            foreach  (var timerWidget in _subTimerWidgets)
             {
-                TimerWidget timerWidget = list[i];
                 timerWidget.Disable();
             }
         }
@@ -391,6 +428,19 @@ namespace ProjectTimerApp
         {
             _activeTimerWidget.UpdateTimeElapsed();
             base.UpdateTimeElapsed();
+        }
+
+        /// <summary>
+        /// Updates all timer widgets time elapsed label and disables/enables UI controls.
+        /// </summary>
+        public void UpdateAllTimerWidgets()
+        {
+            foreach (var timerWidget in _subTimerWidgets)
+            {
+                timerWidget.UpdateTimeElapsed();
+                if (!timerWidget.IsEnabled) { timerWidget.Disable(); }
+                else { timerWidget.Enable(); }
+            }
         }
         #endregion
 

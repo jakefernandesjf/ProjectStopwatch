@@ -10,12 +10,22 @@ namespace ProjectTimerApp
             InitializeComponent();
             _mainForm = mainForm;
             _projectNames = new BindingList<string>();
+            _allProjectProperties = new TimerWidgetProperties[] {
+                mainForm.Project1_Properties,
+                mainForm.Project2_Properties,
+                mainForm.Project3_Properties,
+                mainForm.Project4_Properties,
+                mainForm.Project5_Properties,
+                mainForm.Project6_Properties,            
+                mainForm.Project7_Properties,
+                mainForm.Project8_Properties,
+            };           
 
-            foreach (var timer in _mainForm.TotalTimerWidget.GetAllTimerWidgets())
+            foreach (TimerWidgetProperties widgetPropertes in _allProjectProperties)
             {
-                if (timer.EnabledStatus == true)
+                if (widgetPropertes.IsEnabled == true)
                 {
-                    _projectNames.Add(timer.GetProjectName());
+                    _projectNames.Add(widgetPropertes.Name);
                 }     
             }
             CurrentProjects_ListBox.DataSource = _projectNames;
@@ -28,34 +38,59 @@ namespace ProjectTimerApp
         {
             if (NewProjectName_TextBox.Text != string.Empty)
             { 
-                if (_projectNames.Count < 8)
+                if (_projectNames.Count < _allProjectProperties.Length)
                 {
                     _projectNames.Add(NewProjectName_TextBox.Text);
                     NewProjectName_TextBox.Text = string.Empty;
+                    NewProjectName_TextBox.Focus();
                 }
             }
         }
 
-        private void Remove_Button_Click(object sender, EventArgs e)
+        private void Clear_Button_Click(object sender, EventArgs e)
         {
-            if (CurrentProjects_ListBox.SelectedItem != null)
+            string message = "Are you sure you want to clear all projects?";
+            string caption = "Clear Projects";
+            var result = MessageBox.Show(message, caption, MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+
+            if (result == DialogResult.Yes)
             {
-                _projectNames.Remove(CurrentProjects_ListBox.SelectedItem.ToString());
+                _projectNames.Clear();
+                _mainForm.TotalTimerWidget.Reset();
+                foreach (var widgetProperties in _allProjectProperties)
+                {
+                    widgetProperties.TimeElapsed = TimeSpan.Zero;
+                }
             }
+
+            NewProjectName_TextBox.Focus();
         }
 
         private void SaveAndExit_Button_Click(object sender, EventArgs e)
         {
-            _mainForm.TotalTimerWidget.DisableAllTimerWidgets();
-            if (_projectNames != null)
+            List<TimerWidget> timerWidgets = _mainForm.TotalTimerWidget.GetAllTimerWidgets();
+
+            for (int i = 0; i < _allProjectProperties.Length; i++)
             {
-                for (int i = 0; i < _projectNames.Count; i++)
+                if (i < _projectNames.Count)
                 {
-                    string name = _projectNames[i].ToString();
-                    _mainForm.SubTimerWidgets[i].SetProjectName(name);
-                    _mainForm.SubTimerWidgets[i].Enable();
+                    _allProjectProperties[i].Name = _projectNames[i];
+                    _allProjectProperties[i].IsEnabled = true;
                 }
+                else
+                {
+                    _allProjectProperties[i].Name = "";
+                    _allProjectProperties[i].IsEnabled = false;
+                }
+                timerWidgets[i].LoadProperties(_allProjectProperties[i]);
             }
+
+            _mainForm.TotalTimerWidget.UpdateAllTimerWidgets();
+            Close();
+        }
+
+        private void Cancel_Button_Click(object sender, EventArgs e)
+        {
             Close();
         }
         #endregion
@@ -64,6 +99,7 @@ namespace ProjectTimerApp
         #region Private Fields
         private readonly ProjectTimer _mainForm;
         private readonly BindingList<string> _projectNames;
+        private readonly TimerWidgetProperties[] _allProjectProperties;
         #endregion
     }
 }

@@ -1,0 +1,57 @@
+﻿<?xml version='1.0' encoding='utf-8'?>
+<SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="ProjectTimerWinFormsApp.Properties" GeneratedClassName="Settings">
+  <Profiles />
+  <Settings>
+    <Setting Name="P1_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 1</Value>
+    </Setting>
+    <Setting Name="P2_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 2</Value>
+    </Setting>
+    <Setting Name="P3_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 3</Value>
+    </Setting>
+    <Setting Name="P4_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 4</Value>
+    </Setting>
+    <Setting Name="P5_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 5</Value>
+    </Setting>
+    <Setting Name="P6_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 6</Value>
+    </Setting>
+    <Setting Name="P7_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 7</Value>
+    </Setting>
+    <Setting Name="P8_Name_Setting" Type="System.String" Scope="User">
+      <Value Profile="(Default)">Project 8</Value>
+    </Setting>
+    <Setting Name="Total_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P1_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P2_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P3_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P4_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P5_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P6_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P7_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+    <Setting Name="P8_TimeElapsed_Setting" Type="System.TimeSpan" Scope="User">
+      <Value Profile="(Default)">00:00:00</Value>
+    </Setting>
+  </Settings>
+</SettingsFile>

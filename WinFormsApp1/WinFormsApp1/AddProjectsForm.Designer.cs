@@ -33,8 +33,9 @@
             this.CurrentProjects_ListBox = new System.Windows.Forms.ListBox();
             this.Add_Button = new System.Windows.Forms.Button();
             this.CurrentProjects_Label = new System.Windows.Forms.Label();
-            this.Remove_Button = new System.Windows.Forms.Button();
+            this.Clear_Button = new System.Windows.Forms.Button();
             this.SaveAndExit_Button = new System.Windows.Forms.Button();
+            this.Cancel_Button = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // NewProjectName_TextBox
@@ -49,9 +50,9 @@
             // EnterNewProjectName_Label
             // 
             this.EnterNewProjectName_Label.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.EnterNewProjectName_Label.Location = new System.Drawing.Point(12, 12);
+            this.EnterNewProjectName_Label.Location = new System.Drawing.Point(12, 8);
             this.EnterNewProjectName_Label.Name = "EnterNewProjectName_Label";
-            this.EnterNewProjectName_Label.Size = new System.Drawing.Size(204, 28);
+            this.EnterNewProjectName_Label.Size = new System.Drawing.Size(205, 34);
             this.EnterNewProjectName_Label.TabIndex = 1;
             this.EnterNewProjectName_Label.Text = "Enter new project name:";
             this.EnterNewProjectName_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
@@ -61,7 +62,7 @@
             this.CurrentProjects_ListBox.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.CurrentProjects_ListBox.FormattingEnabled = true;
             this.CurrentProjects_ListBox.ItemHeight = 28;
-            this.CurrentProjects_ListBox.Location = new System.Drawing.Point(223, 96);
+            this.CurrentProjects_ListBox.Location = new System.Drawing.Point(223, 89);
             this.CurrentProjects_ListBox.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.CurrentProjects_ListBox.Name = "CurrentProjects_ListBox";
             this.CurrentProjects_ListBox.Size = new System.Drawing.Size(222, 228);
@@ -69,7 +70,7 @@
             // 
             // Add_Button
             // 
-            this.Add_Button.Location = new System.Drawing.Point(223, 55);
+            this.Add_Button.Location = new System.Drawing.Point(361, 50);
             this.Add_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Add_Button.Name = "Add_Button";
             this.Add_Button.Size = new System.Drawing.Size(86, 31);
@@ -81,43 +82,56 @@
             // CurrentProjects_Label
             // 
             this.CurrentProjects_Label.Font = new System.Drawing.Font("Segoe UI", 10.2F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.CurrentProjects_Label.Location = new System.Drawing.Point(12, 96);
+            this.CurrentProjects_Label.Location = new System.Drawing.Point(12, 89);
             this.CurrentProjects_Label.Name = "CurrentProjects_Label";
-            this.CurrentProjects_Label.Size = new System.Drawing.Size(204, 28);
+            this.CurrentProjects_Label.Size = new System.Drawing.Size(205, 228);
             this.CurrentProjects_Label.TabIndex = 4;
             this.CurrentProjects_Label.Text = "Current Projects:";
-            this.CurrentProjects_Label.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.CurrentProjects_Label.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // Remove_Button
+            // Clear_Button
             // 
-            this.Remove_Button.Location = new System.Drawing.Point(223, 333);
-            this.Remove_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.Remove_Button.Name = "Remove_Button";
-            this.Remove_Button.Size = new System.Drawing.Size(86, 31);
-            this.Remove_Button.TabIndex = 5;
-            this.Remove_Button.Text = "Remove";
-            this.Remove_Button.UseVisualStyleBackColor = true;
-            this.Remove_Button.Click += new System.EventHandler(this.Remove_Button_Click);
+            this.Clear_Button.Location = new System.Drawing.Point(361, 325);
+            this.Clear_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.Clear_Button.Name = "Clear_Button";
+            this.Clear_Button.Size = new System.Drawing.Size(86, 31);
+            this.Clear_Button.TabIndex = 5;
+            this.Clear_Button.Text = "Clear";
+            this.Clear_Button.UseVisualStyleBackColor = true;
+            this.Clear_Button.Click += new System.EventHandler(this.Clear_Button_Click);
             // 
             // SaveAndExit_Button
             // 
-            this.SaveAndExit_Button.Location = new System.Drawing.Point(315, 333);
-            this.SaveAndExit_Button.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.SaveAndExit_Button.Location = new System.Drawing.Point(328, 388);
+            this.SaveAndExit_Button.Margin = new System.Windows.Forms.Padding(3, 10, 3, 4);
             this.SaveAndExit_Button.Name = "SaveAndExit_Button";
-            this.SaveAndExit_Button.Size = new System.Drawing.Size(130, 31);
+            this.SaveAndExit_Button.Size = new System.Drawing.Size(119, 31);
             this.SaveAndExit_Button.TabIndex = 6;
-            this.SaveAndExit_Button.Text = "Save and Exit";
+            this.SaveAndExit_Button.Text = "Save";
             this.SaveAndExit_Button.UseVisualStyleBackColor = true;
             this.SaveAndExit_Button.Click += new System.EventHandler(this.SaveAndExit_Button_Click);
+            // 
+            // Cancel_Button
+            // 
+            this.Cancel_Button.AutoEllipsis = true;
+            this.Cancel_Button.Location = new System.Drawing.Point(12, 388);
+            this.Cancel_Button.Margin = new System.Windows.Forms.Padding(3, 10, 3, 4);
+            this.Cancel_Button.Name = "Cancel_Button";
+            this.Cancel_Button.Size = new System.Drawing.Size(119, 31);
+            this.Cancel_Button.TabIndex = 7;
+            this.Cancel_Button.Text = "Cancel";
+            this.Cancel_Button.UseVisualStyleBackColor = true;
+            this.Cancel_Button.Click += new System.EventHandler(this.Cancel_Button_Click);
             // 
             // AddProjects
             // 
             this.AcceptButton = this.Add_Button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(459, 364);
+            this.ClientSize = new System.Drawing.Size(459, 430);
+            this.Controls.Add(this.Cancel_Button);
             this.Controls.Add(this.SaveAndExit_Button);
-            this.Controls.Add(this.Remove_Button);
+            this.Controls.Add(this.Clear_Button);
             this.Controls.Add(this.CurrentProjects_Label);
             this.Controls.Add(this.Add_Button);
             this.Controls.Add(this.CurrentProjects_ListBox);
@@ -126,9 +140,9 @@
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.MaximizeBox = false;
-            this.MaximumSize = new System.Drawing.Size(477, 411);
+            this.MaximumSize = new System.Drawing.Size(477, 477);
             this.MinimizeBox = false;
-            this.MinimumSize = new System.Drawing.Size(477, 411);
+            this.MinimumSize = new System.Drawing.Size(477, 477);
             this.Name = "AddProjects";
             this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
@@ -146,7 +160,8 @@
         private ListBox CurrentProjects_ListBox;
         private Button Add_Button;
         private Label CurrentProjects_Label;
-        private Button Remove_Button;
+        private Button Clear_Button;
         private Button SaveAndExit_Button;
+        private Button Cancel_Button;
     }
 }
