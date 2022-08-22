@@ -31,9 +31,8 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.version01ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.Reset_Button = new System.Windows.Forms.ToolStripMenuItem();
+            this.About_Button = new System.Windows.Forms.ToolStripMenuItem();
             this.TotalTimerTimeElapsedLabel = new System.Windows.Forms.Label();
             this.TotalTimerPauseButton = new System.Windows.Forms.Button();
             this.Project1_Name_Label = new System.Windows.Forms.Label();
@@ -65,7 +64,7 @@
             this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.About_Button});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(6, 3, 0, 3);
@@ -76,7 +75,8 @@
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.AddProjectsToolStripMenuItem});
+            this.AddProjectsToolStripMenuItem,
+            this.Reset_Button});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(46, 24);
             this.fileToolStripMenuItem.Text = "File";
@@ -88,27 +88,19 @@
             this.AddProjectsToolStripMenuItem.Text = "Add Projects";
             this.AddProjectsToolStripMenuItem.Click += new System.EventHandler(this.AddProjectsToolStripMenuItem_Click);
             // 
-            // helpToolStripMenuItem
+            // Reset_Button
             // 
-            this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.aboutToolStripMenuItem});
-            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
-            this.helpToolStripMenuItem.Text = "Help";
+            this.Reset_Button.Name = "Reset_Button";
+            this.Reset_Button.Size = new System.Drawing.Size(176, 26);
+            this.Reset_Button.Text = "Reset";
+            this.Reset_Button.Click += new System.EventHandler(this.Reset_Button_Click);
             // 
-            // aboutToolStripMenuItem
+            // About_Button
             // 
-            this.aboutToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.version01ToolStripMenuItem});
-            this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-            this.aboutToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.aboutToolStripMenuItem.Text = "About";
-            // 
-            // version01ToolStripMenuItem
-            // 
-            this.version01ToolStripMenuItem.Name = "version01ToolStripMenuItem";
-            this.version01ToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.version01ToolStripMenuItem.Text = "Version 0.2";
+            this.About_Button.Name = "About_Button";
+            this.About_Button.Size = new System.Drawing.Size(64, 24);
+            this.About_Button.Text = "About";
+            this.About_Button.Click += new System.EventHandler(this.About_Button_Click);
             // 
             // TotalTimerTimeElapsedLabel
             // 
@@ -501,8 +493,7 @@
         private MenuStrip menuStrip1;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem AddProjectsToolStripMenuItem;
-        private ToolStripMenuItem helpToolStripMenuItem;
-        private ToolStripMenuItem aboutToolStripMenuItem;
+        private ToolStripMenuItem About_Button;
         private Label TotalTimerTimeElapsedLabel;
         private Button TotalTimerPauseButton;
         private Label Project1_Name_Label;
@@ -525,6 +516,6 @@
         private Button Subtract10_Button;
         private Button Add10_Button;
         private Button Add30_Button;
-        private ToolStripMenuItem version01ToolStripMenuItem;
+        private ToolStripMenuItem Reset_Button;
     }
 }

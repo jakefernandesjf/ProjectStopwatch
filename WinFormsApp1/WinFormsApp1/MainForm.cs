@@ -50,9 +50,15 @@ namespace ProjectTimerApp
             SaveAllProperties();
             AddProjects addProjects = new(this);
             addProjects.Show();
+
+            Invoke(new MethodInvoker(() => this.Enabled = false));
+        }
+        private void About_Button_Click(object sender, EventArgs e)
+        {
+            AboutForm aboutForm = new();
+            aboutForm.Show();
         }
         #endregion
-
 
         #region TotalTimer
         private void TotalTimerPause_Click(object sender, EventArgs e)
@@ -62,7 +68,13 @@ namespace ProjectTimerApp
             if (!TotalTimerWidget.GetActiveStatus())
             {
                 Invoke(new MethodInvoker(() => AddProjectsToolStripMenuItem.Enabled = true));
+                Invoke(new MethodInvoker(() => Reset_Button.Enabled = true));
             }
+        }
+
+        private void Reset_Button_Click(object sender, EventArgs e)
+        {
+            TotalTimerWidget.Reset();
         }
         #endregion
 
@@ -140,6 +152,7 @@ namespace ProjectTimerApp
             if (TotalTimerWidget.GetActiveStatus())
             {
                 Invoke(new MethodInvoker(() => AddProjectsToolStripMenuItem.Enabled = false));
+                Invoke(new MethodInvoker(() => Reset_Button.Enabled = false));
             }
         }
 
