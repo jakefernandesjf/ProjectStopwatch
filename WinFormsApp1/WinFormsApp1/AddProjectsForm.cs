@@ -86,12 +86,18 @@ namespace ProjectTimerApp
             }
 
             _mainForm.TotalTimerWidget.UpdateAllTimerWidgets();
+
             Close();
         }
 
         private void Cancel_Button_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void Form_Closing(object sender, FormClosingEventArgs e)
+        {
+            Invoke(new MethodInvoker(() => _mainForm.Enabled = true));
         }
         #endregion
 
