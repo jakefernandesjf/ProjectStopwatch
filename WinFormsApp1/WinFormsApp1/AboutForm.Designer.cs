@@ -39,7 +39,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(242, 136);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Project Timer\r\nVersion 0.5\r\n\r\nJake Fernandes\r\n2022";
+            this.label1.Text = "Project Timer\r\nVersion 0.6\r\n\r\nJake Fernandes\r\n2022";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AboutForm
