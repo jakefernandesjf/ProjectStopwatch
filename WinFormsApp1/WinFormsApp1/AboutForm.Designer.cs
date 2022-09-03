@@ -39,7 +39,7 @@
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(212, 102);
             this.label1.TabIndex = 0;
-            this.label1.Text = "Project Stopwatch\r\nVersion 0.7\r\n\r\nJake Fernandes\r\n2022";
+            this.label1.Text = "Project Stopwatch\r\nVersion 0.8\r\n\r\nJake Fernandes\r\n2022";
             this.label1.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // AboutForm
@@ -54,7 +54,7 @@
             this.MinimizeBox = false;
             this.MinimumSize = new System.Drawing.Size(250, 161);
             this.Name = "AboutForm";
-            this.ShowInTaskbar = false;
+            this.ShowIcon = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "About";
             this.TopMost = true;

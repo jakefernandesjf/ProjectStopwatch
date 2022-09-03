@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.AddProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -109,7 +110,7 @@
             this.TotalStopwatchTimeElapsedLabel.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
             this.TotalStopwatchTimeElapsedLabel.Location = new System.Drawing.Point(14, 32);
             this.TotalStopwatchTimeElapsedLabel.Margin = new System.Windows.Forms.Padding(3);
-            this.TotalStopwatchTimeElapsedLabel.Name = "TotalTimerTimeElapsedLabel";
+            this.TotalStopwatchTimeElapsedLabel.Name = "TotalStopwatchTimeElapsedLabel";
             this.TotalStopwatchTimeElapsedLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.TotalStopwatchTimeElapsedLabel.Size = new System.Drawing.Size(241, 61);
             this.TotalStopwatchTimeElapsedLabel.TabIndex = 2;
@@ -123,7 +124,7 @@
             this.TotalStopwatchPauseButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
             this.TotalStopwatchPauseButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.TotalStopwatchPauseButton.Location = new System.Drawing.Point(262, 32);
-            this.TotalStopwatchPauseButton.Name = "TotalTimerPauseButton";
+            this.TotalStopwatchPauseButton.Name = "TotalStopwatchPauseButton";
             this.TotalStopwatchPauseButton.Size = new System.Drawing.Size(242, 61);
             this.TotalStopwatchPauseButton.TabIndex = 3;
             this.TotalStopwatchPauseButton.Text = "Pause";
@@ -467,6 +468,7 @@
             this.Controls.Add(this.TotalStopwatchTimeElapsedLabel);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
