@@ -1,6 +1,6 @@
-﻿namespace ProjectTimerApp
+﻿namespace ProjectStopwatchApp
 {
-    partial class ProjectTimer
+    partial class MainForm
     {
         /// <summary>
         ///  Required designer variable.
@@ -33,8 +33,8 @@
             this.AddProjectsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.Reset_Button = new System.Windows.Forms.ToolStripMenuItem();
             this.About_Button = new System.Windows.Forms.ToolStripMenuItem();
-            this.TotalTimerTimeElapsedLabel = new System.Windows.Forms.Label();
-            this.TotalTimerPauseButton = new System.Windows.Forms.Button();
+            this.TotalStopwatchTimeElapsedLabel = new System.Windows.Forms.Label();
+            this.TotalStopwatchPauseButton = new System.Windows.Forms.Button();
             this.Project1_Name_Label = new System.Windows.Forms.Label();
             this.Project1_TimeElapsed_Label = new System.Windows.Forms.Label();
             this.Project2_TimeElapsed_Label = new System.Windows.Forms.Label();
@@ -102,33 +102,33 @@
             this.About_Button.Text = "About";
             this.About_Button.Click += new System.EventHandler(this.About_Button_Click);
             // 
-            // TotalTimerTimeElapsedLabel
+            // TotalStopwatchTimeElapsedLabel
             // 
-            this.TotalTimerTimeElapsedLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TotalTimerTimeElapsedLabel.AutoEllipsis = true;
-            this.TotalTimerTimeElapsedLabel.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
-            this.TotalTimerTimeElapsedLabel.Location = new System.Drawing.Point(14, 32);
-            this.TotalTimerTimeElapsedLabel.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
-            this.TotalTimerTimeElapsedLabel.Name = "TotalTimerTimeElapsedLabel";
-            this.TotalTimerTimeElapsedLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
-            this.TotalTimerTimeElapsedLabel.Size = new System.Drawing.Size(241, 61);
-            this.TotalTimerTimeElapsedLabel.TabIndex = 2;
-            this.TotalTimerTimeElapsedLabel.Text = "00:00:00";
-            this.TotalTimerTimeElapsedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-            this.TotalTimerTimeElapsedLabel.Click += new System.EventHandler(this.TotalTimerPause_Click);
+            this.TotalStopwatchTimeElapsedLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TotalStopwatchTimeElapsedLabel.AutoEllipsis = true;
+            this.TotalStopwatchTimeElapsedLabel.Font = new System.Drawing.Font("Segoe UI", 28.2F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point);
+            this.TotalStopwatchTimeElapsedLabel.Location = new System.Drawing.Point(14, 32);
+            this.TotalStopwatchTimeElapsedLabel.Margin = new System.Windows.Forms.Padding(3);
+            this.TotalStopwatchTimeElapsedLabel.Name = "TotalTimerTimeElapsedLabel";
+            this.TotalStopwatchTimeElapsedLabel.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
+            this.TotalStopwatchTimeElapsedLabel.Size = new System.Drawing.Size(241, 61);
+            this.TotalStopwatchTimeElapsedLabel.TabIndex = 2;
+            this.TotalStopwatchTimeElapsedLabel.Text = "00:00:00";
+            this.TotalStopwatchTimeElapsedLabel.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.TotalStopwatchTimeElapsedLabel.Click += new System.EventHandler(this.TotalStopwatchPause_Click);
             // 
-            // TotalTimerPauseButton
+            // TotalStopwatchPauseButton
             // 
-            this.TotalTimerPauseButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.TotalTimerPauseButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
-            this.TotalTimerPauseButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.TotalTimerPauseButton.Location = new System.Drawing.Point(262, 32);
-            this.TotalTimerPauseButton.Name = "TotalTimerPauseButton";
-            this.TotalTimerPauseButton.Size = new System.Drawing.Size(242, 61);
-            this.TotalTimerPauseButton.TabIndex = 3;
-            this.TotalTimerPauseButton.Text = "Pause";
-            this.TotalTimerPauseButton.UseVisualStyleBackColor = false;
-            this.TotalTimerPauseButton.Click += new System.EventHandler(this.TotalTimerPause_Click);
+            this.TotalStopwatchPauseButton.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.TotalStopwatchPauseButton.BackColor = System.Drawing.SystemColors.InactiveBorder;
+            this.TotalStopwatchPauseButton.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.TotalStopwatchPauseButton.Location = new System.Drawing.Point(262, 32);
+            this.TotalStopwatchPauseButton.Name = "TotalTimerPauseButton";
+            this.TotalStopwatchPauseButton.Size = new System.Drawing.Size(242, 61);
+            this.TotalStopwatchPauseButton.TabIndex = 3;
+            this.TotalStopwatchPauseButton.Text = "Pause";
+            this.TotalStopwatchPauseButton.UseVisualStyleBackColor = false;
+            this.TotalStopwatchPauseButton.Click += new System.EventHandler(this.TotalStopwatchPause_Click);
             // 
             // Project1_Name_Label
             // 
@@ -137,7 +137,7 @@
             this.Project1_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project1_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project1_Name_Label.Location = new System.Drawing.Point(262, 158);
-            this.Project1_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project1_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project1_Name_Label.Name = "Project1_Name_Label";
             this.Project1_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project1_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -153,7 +153,7 @@
             this.Project1_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project1_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project1_TimeElapsed_Label.Location = new System.Drawing.Point(14, 158);
-            this.Project1_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project1_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project1_TimeElapsed_Label.Name = "Project1_TimeElapsed_Label";
             this.Project1_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project1_TimeElapsed_Label.Size = new System.Drawing.Size(241, 39);
@@ -169,7 +169,7 @@
             this.Project2_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project2_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project2_TimeElapsed_Label.Location = new System.Drawing.Point(14, 207);
-            this.Project2_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project2_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project2_TimeElapsed_Label.Name = "Project2_TimeElapsed_Label";
             this.Project2_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project2_TimeElapsed_Label.Size = new System.Drawing.Size(241, 39);
@@ -185,7 +185,7 @@
             this.Project2_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project2_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project2_Name_Label.Location = new System.Drawing.Point(262, 207);
-            this.Project2_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project2_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project2_Name_Label.Name = "Project2_Name_Label";
             this.Project2_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project2_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -201,7 +201,7 @@
             this.Project4_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project4_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project4_TimeElapsed_Label.Location = new System.Drawing.Point(12, 307);
-            this.Project4_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project4_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project4_TimeElapsed_Label.Name = "Project4_TimeElapsed_Label";
             this.Project4_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project4_TimeElapsed_Label.Size = new System.Drawing.Size(243, 39);
@@ -217,7 +217,7 @@
             this.Project4_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project4_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project4_Name_Label.Location = new System.Drawing.Point(262, 307);
-            this.Project4_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project4_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project4_Name_Label.Name = "Project4_Name_Label";
             this.Project4_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project4_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -233,7 +233,7 @@
             this.Project3_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project3_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project3_TimeElapsed_Label.Location = new System.Drawing.Point(14, 256);
-            this.Project3_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project3_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project3_TimeElapsed_Label.Name = "Project3_TimeElapsed_Label";
             this.Project3_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project3_TimeElapsed_Label.Size = new System.Drawing.Size(241, 39);
@@ -249,7 +249,7 @@
             this.Project3_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project3_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project3_Name_Label.Location = new System.Drawing.Point(262, 256);
-            this.Project3_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project3_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project3_Name_Label.Name = "Project3_Name_Label";
             this.Project3_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project3_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -265,7 +265,7 @@
             this.Project6_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project6_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project6_TimeElapsed_Label.Location = new System.Drawing.Point(12, 406);
-            this.Project6_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project6_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project6_TimeElapsed_Label.Name = "Project6_TimeElapsed_Label";
             this.Project6_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project6_TimeElapsed_Label.Size = new System.Drawing.Size(243, 39);
@@ -281,7 +281,7 @@
             this.Project6_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project6_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project6_Name_Label.Location = new System.Drawing.Point(262, 406);
-            this.Project6_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project6_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project6_Name_Label.Name = "Project6_Name_Label";
             this.Project6_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project6_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -297,7 +297,7 @@
             this.Project5_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project5_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project5_TimeElapsed_Label.Location = new System.Drawing.Point(12, 356);
-            this.Project5_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project5_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project5_TimeElapsed_Label.Name = "Project5_TimeElapsed_Label";
             this.Project5_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project5_TimeElapsed_Label.Size = new System.Drawing.Size(243, 39);
@@ -313,7 +313,7 @@
             this.Project5_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project5_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project5_Name_Label.Location = new System.Drawing.Point(262, 356);
-            this.Project5_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project5_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project5_Name_Label.Name = "Project5_Name_Label";
             this.Project5_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project5_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -329,7 +329,7 @@
             this.Project8_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project8_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project8_TimeElapsed_Label.Location = new System.Drawing.Point(12, 506);
-            this.Project8_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project8_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project8_TimeElapsed_Label.Name = "Project8_TimeElapsed_Label";
             this.Project8_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project8_TimeElapsed_Label.Size = new System.Drawing.Size(243, 39);
@@ -345,7 +345,7 @@
             this.Project8_Name_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project8_Name_Label.Font = new System.Drawing.Font("Segoe UI", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project8_Name_Label.Location = new System.Drawing.Point(262, 506);
-            this.Project8_Name_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project8_Name_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project8_Name_Label.Name = "Project8_Name_Label";
             this.Project8_Name_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project8_Name_Label.Size = new System.Drawing.Size(242, 39);
@@ -361,7 +361,7 @@
             this.Project7_TimeElapsed_Label.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Project7_TimeElapsed_Label.Font = new System.Drawing.Font("Segoe UI", 19.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.Project7_TimeElapsed_Label.Location = new System.Drawing.Point(12, 456);
-            this.Project7_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3, 3, 3, 3);
+            this.Project7_TimeElapsed_Label.Margin = new System.Windows.Forms.Padding(3);
             this.Project7_TimeElapsed_Label.Name = "Project7_TimeElapsed_Label";
             this.Project7_TimeElapsed_Label.Padding = new System.Windows.Forms.Padding(5, 0, 5, 0);
             this.Project7_TimeElapsed_Label.Size = new System.Drawing.Size(243, 39);
@@ -437,7 +437,7 @@
             this.Add30_Button.UseVisualStyleBackColor = false;
             this.Add30_Button.Click += new System.EventHandler(this.Add30_Button_Click);
             // 
-            // ProjectTimer
+            // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -463,19 +463,19 @@
             this.Controls.Add(this.Subtract30_Button);
             this.Controls.Add(this.Project1_TimeElapsed_Label);
             this.Controls.Add(this.Project1_Name_Label);
-            this.Controls.Add(this.TotalTimerPauseButton);
-            this.Controls.Add(this.TotalTimerTimeElapsedLabel);
+            this.Controls.Add(this.TotalStopwatchPauseButton);
+            this.Controls.Add(this.TotalStopwatchTimeElapsedLabel);
             this.Controls.Add(this.menuStrip1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.KeyPreview = true;
             this.MainMenuStrip = this.menuStrip1;
             this.Margin = new System.Windows.Forms.Padding(3, 2, 3, 2);
             this.MaximumSize = new System.Drawing.Size(542, 607);
-            this.Name = "ProjectTimer";
+            this.Name = "MainForm";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Project Timer";
-            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ProjectTimer_FormClosing);
-            this.Load += new System.EventHandler(this.Form1_Load);
+            this.Text = "Project Stopwatch";
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.MainForm_FormClosing);
+            this.Load += new System.EventHandler(this.MainForm_Load);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             this.ResumeLayout(false);
@@ -489,8 +489,8 @@
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem AddProjectsToolStripMenuItem;
         private ToolStripMenuItem About_Button;
-        private Label TotalTimerTimeElapsedLabel;
-        private Button TotalTimerPauseButton;
+        private Label TotalStopwatchTimeElapsedLabel;
+        private Button TotalStopwatchPauseButton;
         private Label Project1_Name_Label;
         private Label Project1_TimeElapsed_Label;
         private Label Project2_TimeElapsed_Label;

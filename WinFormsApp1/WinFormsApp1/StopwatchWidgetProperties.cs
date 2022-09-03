@@ -1,16 +1,16 @@
-﻿namespace ProjectTimerApp
+﻿namespace ProjectStopwatchApp
 {
-    public class TimerWidgetProperties
+    public class StopwatchWidgetProperties
     {
         #region Constructors
-        public TimerWidgetProperties()
+        public StopwatchWidgetProperties()
         {
             Name = "";
             TimeElapsed = TimeSpan.Zero;
             IsEnabled = false;
         }
 
-        public TimerWidgetProperties(string name, TimeSpan timeElapsed)
+        public StopwatchWidgetProperties(string name, TimeSpan timeElapsed)
         {
             Name = name;
             TimeElapsed = timeElapsed;
@@ -24,14 +24,14 @@
 
         #region Public Methdods
         /// <summary>
-        /// Save properties from <paramref name="timerWidget"/>.
+        /// Save properties from <paramref name="widget"/>.
         /// </summary>
-        /// <param name="timerWidget"></param>
-        public void SaveFromTimerWidget(TimerWidget timerWidget)
+        /// <param name="widget"></param>
+        public void SaveFromWidget(StopwatchWidget widget)
         {
-            Name = timerWidget.GetProjectName();
-            TimeElapsed = timerWidget.GetTimeElapsed();
-            IsEnabled = timerWidget.IsEnabled;
+            Name = widget.GetProjectName();
+            TimeElapsed = widget.GetTimeElapsed();
+            IsEnabled = widget.IsEnabled;
         }
         #endregion
 

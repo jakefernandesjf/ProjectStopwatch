@@ -1,14 +1,14 @@
-namespace ProjectTimerApp
+namespace ProjectStopwatchApp
 {
-    public partial class ProjectTimer : Form
+    public partial class MainForm : Form
     {
         #region Constructor
-        public ProjectTimer()
+        public MainForm()
         {
             InitializeComponent();
-            InitializeTimerProperties();
-            InitializeTimerWidgets();
-            InitializeTotalTimerWidget();
+            InitializeStopwatchProperties();
+            InitializeStopwatchWidgets();
+            InitializeTotalStopwatchWidget();
 
             _uITimer = new(TICK_VALUE);
         }
@@ -18,10 +18,10 @@ namespace ProjectTimerApp
         #region UI Methods
 
         #region Form functions
-        private void Form1_Load(object sender, EventArgs e)
+        private void MainForm_Load(object sender, EventArgs e)
         {
-            TotalTimerWidget.SetInactiveWidgetStyle();
-            TotalTimerWidget.UpdateAllTimerWidgets();
+            TotalStopwatchWidget.SetInactiveWidgetStyle();
+            TotalStopwatchWidget.UpdateAllWidgets();
 
             _uITimer.Start();
             _uITimer.Elapsed += UITimer_Tick;
@@ -31,14 +31,14 @@ namespace ProjectTimerApp
         {
             if (!IsDisposed)
             {
-                Invoke(new MethodInvoker(() => TotalTimerWidget.UpdateTimeElapsed()));
+                Invoke(new MethodInvoker(() => TotalStopwatchWidget.UpdateTimeElapsed()));
             }
         }
 
-        private void ProjectTimer_FormClosing(object sender, FormClosingEventArgs e)
+        private void MainForm_FormClosing(object sender, FormClosingEventArgs e)
         {
             _uITimer.Stop();
-            TotalTimerWidget.Pause();
+            TotalStopwatchWidget.Pause();
             SaveAllProperties();
         }
         #endregion
@@ -48,7 +48,7 @@ namespace ProjectTimerApp
         private void AddProjectsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveAllProperties();
-            AddProjects addProjects = new(this);
+            AddProjectsForm addProjects = new(this);
             addProjects.Show();
 
             Invoke(new MethodInvoker(() => this.Enabled = false));
@@ -60,12 +60,13 @@ namespace ProjectTimerApp
         }
         #endregion
 
-        #region TotalTimer
-        private void TotalTimerPause_Click(object sender, EventArgs e)
+
+        #region TotalStopwatch
+        private void TotalStopwatchPause_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.Pause();
-            TotalTimerWidget.UpdateTimeElapsed();
-            if (!TotalTimerWidget.GetActiveStatus())
+            TotalStopwatchWidget.Pause();
+            TotalStopwatchWidget.UpdateTimeElapsed();
+            if (!TotalStopwatchWidget.GetActiveStatus())
             {
                 Invoke(new MethodInvoker(() => AddProjectsToolStripMenuItem.Enabled = true));
                 Invoke(new MethodInvoker(() => Reset_Button.Enabled = true));
@@ -74,35 +75,35 @@ namespace ProjectTimerApp
 
         private void Reset_Button_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.Reset();
+            TotalStopwatchWidget.Reset();
         }
         #endregion
 
 
-        #region ActiveTimer Buttons
+        #region ActiveStopwatch Buttons
         private void Subtract30_Button_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SubtractTimeFromActiveTimerWidget(TimeSpan.FromMinutes(30));
+            TotalStopwatchWidget.SubtractTimeFromActiveWidget(TimeSpan.FromMinutes(30));
         }
 
         private void Subtract10_Button_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.SubtractTimeFromActiveTimerWidget(TimeSpan.FromMinutes(10));
+            TotalStopwatchWidget.SubtractTimeFromActiveWidget(TimeSpan.FromMinutes(10));
         }
 
         private void Add10_Button_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.AddTimeToActiveTimerWidget(TimeSpan.FromMinutes(10));
+            TotalStopwatchWidget.AddTimeToActiveWidget(TimeSpan.FromMinutes(10));
         }
 
         private void Add30_Button_Click(object sender, EventArgs e)
         {
-            TotalTimerWidget.AddTimeToActiveTimerWidget(TimeSpan.FromMinutes(30));
+            TotalStopwatchWidget.AddTimeToActiveWidget(TimeSpan.FromMinutes(30));
         }
         #endregion
 
 
-        #region SubTimers
+        #region SubWidgets
         private void Project1_Click(object sender, EventArgs e)
         {
             ClickProject(Project1);
@@ -146,20 +147,20 @@ namespace ProjectTimerApp
 
 
         #region Helper Functions
-        private void ClickProject(TimerWidget project)
+        private void ClickProject(StopwatchWidget project)
         {
-            TotalTimerWidget.SetAndStartActiveSubTimerWidget(project);
-            if (TotalTimerWidget.GetActiveStatus())
+            TotalStopwatchWidget.SetAndStartActiveSubWidget(project);
+            if (TotalStopwatchWidget.GetActiveStatus())
             {
                 Invoke(new MethodInvoker(() => AddProjectsToolStripMenuItem.Enabled = false));
                 Invoke(new MethodInvoker(() => Reset_Button.Enabled = false));
             }
         }
 
-        private void InitializeTimerProperties()
+        private void InitializeStopwatchProperties()
         {
-            var Settings = ProjectTimerWinFormsApp.Properties.Settings.Default;
-            TotalTimer_Properties = new("TotalTimer", Settings.Total_TimeElapsed_Setting);
+            var Settings = Properties.Settings.Default;
+            TotalStopwatch_Properties = new("TotalStopwatch", Settings.Total_TimeElapsed_Setting);
             Project1_Properties = new(Settings.P1_Name_Setting, Settings.P1_TimeElapsed_Setting);
             Project2_Properties = new(Settings.P2_Name_Setting, Settings.P2_TimeElapsed_Setting);
             Project3_Properties = new(Settings.P3_Name_Setting, Settings.P3_TimeElapsed_Setting);
@@ -170,7 +171,7 @@ namespace ProjectTimerApp
             Project8_Properties = new(Settings.P8_Name_Setting, Settings.P8_TimeElapsed_Setting);
         }
 
-        private void InitializeTimerWidgets()
+        private void InitializeStopwatchWidgets()
         {
             Project1 = new(Project1_TimeElapsed_Label, Project1_Name_Label, Project1_Properties);
             Project2 = new(Project2_TimeElapsed_Label, Project2_Name_Label, Project2_Properties);
@@ -182,9 +183,9 @@ namespace ProjectTimerApp
             Project8 = new(Project8_TimeElapsed_Label, Project8_Name_Label, Project8_Properties);
         }
 
-        private void InitializeTotalTimerWidget()
+        private void InitializeTotalStopwatchWidget()
         {
-            SubTimerWidgets = new List<TimerWidget>
+            SubWidgets = new List<StopwatchWidget>
             {
                 Project1,
                 Project2,
@@ -196,34 +197,34 @@ namespace ProjectTimerApp
                 Project8,
             };
 
-            TotalTimerWidget = new TotalTimerWidget
+            TotalStopwatchWidget = new TotalStopwatchWidget
             (
-                TotalTimerTimeElapsedLabel,
+                TotalStopwatchTimeElapsedLabel,
                 Subtract30_Button,
                 Subtract10_Button,
                 Add10_Button,
                 Add30_Button,
-                TotalTimerPauseButton,
-                SubTimerWidgets,
-                TotalTimer_Properties
+                TotalStopwatchPauseButton,
+                SubWidgets,
+                TotalStopwatch_Properties
             );
         }
 
         private void SaveAllProperties()
         {
-            var Settings = ProjectTimerWinFormsApp.Properties.Settings.Default;
+            var Settings = Properties.Settings.Default;
 
-            TotalTimer_Properties.SaveFromTimerWidget(TotalTimerWidget);
-            Project1_Properties.SaveFromTimerWidget(Project1);
-            Project2_Properties.SaveFromTimerWidget(Project2);
-            Project3_Properties.SaveFromTimerWidget(Project3);
-            Project4_Properties.SaveFromTimerWidget(Project4);
-            Project5_Properties.SaveFromTimerWidget(Project5);
-            Project6_Properties.SaveFromTimerWidget(Project6);
-            Project7_Properties.SaveFromTimerWidget(Project7);
-            Project8_Properties.SaveFromTimerWidget(Project8);
+            TotalStopwatch_Properties.SaveFromWidget(TotalStopwatchWidget);
+            Project1_Properties.SaveFromWidget(Project1);
+            Project2_Properties.SaveFromWidget(Project2);
+            Project3_Properties.SaveFromWidget(Project3);
+            Project4_Properties.SaveFromWidget(Project4);
+            Project5_Properties.SaveFromWidget(Project5);
+            Project6_Properties.SaveFromWidget(Project6);
+            Project7_Properties.SaveFromWidget(Project7);
+            Project8_Properties.SaveFromWidget(Project8);
 
-            Settings.Total_TimeElapsed_Setting = TotalTimer_Properties.TimeElapsed;
+            Settings.Total_TimeElapsed_Setting = TotalStopwatch_Properties.TimeElapsed;
             Settings.P1_Name_Setting = Project1_Properties.Name;
             Settings.P1_TimeElapsed_Setting = Project1_Properties.TimeElapsed;
             Settings.P2_Name_Setting = Project2_Properties.Name;
@@ -249,17 +250,17 @@ namespace ProjectTimerApp
 
 
         #region Public Fields       
-        public TotalTimerWidget TotalTimerWidget;
+        public TotalStopwatchWidget TotalStopwatchWidget;
 
-        public TimerWidgetProperties TotalTimer_Properties;
-        public TimerWidgetProperties Project1_Properties;
-        public TimerWidgetProperties Project2_Properties;
-        public TimerWidgetProperties Project3_Properties;
-        public TimerWidgetProperties Project4_Properties;
-        public TimerWidgetProperties Project5_Properties;
-        public TimerWidgetProperties Project6_Properties;
-        public TimerWidgetProperties Project7_Properties;
-        public TimerWidgetProperties Project8_Properties;
+        public StopwatchWidgetProperties TotalStopwatch_Properties;
+        public StopwatchWidgetProperties Project1_Properties;
+        public StopwatchWidgetProperties Project2_Properties;
+        public StopwatchWidgetProperties Project3_Properties;
+        public StopwatchWidgetProperties Project4_Properties;
+        public StopwatchWidgetProperties Project5_Properties;
+        public StopwatchWidgetProperties Project6_Properties;
+        public StopwatchWidgetProperties Project7_Properties;
+        public StopwatchWidgetProperties Project8_Properties;
         #endregion
 
 
@@ -267,15 +268,15 @@ namespace ProjectTimerApp
         private readonly System.Timers.Timer _uITimer;
         private const int TICK_VALUE = 1000;
 
-        private List<TimerWidget> SubTimerWidgets;
-        private TimerWidget Project1;
-        private TimerWidget Project2;
-        private TimerWidget Project3;
-        private TimerWidget Project4;
-        private TimerWidget Project5;
-        private TimerWidget Project6;
-        private TimerWidget Project7;
-        private TimerWidget Project8;
+        private List<StopwatchWidget> SubWidgets;
+        private StopwatchWidget Project1;
+        private StopwatchWidget Project2;
+        private StopwatchWidget Project3;
+        private StopwatchWidget Project4;
+        private StopwatchWidget Project5;
+        private StopwatchWidget Project6;
+        private StopwatchWidget Project7;
+        private StopwatchWidget Project8;
         #endregion
     }
 }

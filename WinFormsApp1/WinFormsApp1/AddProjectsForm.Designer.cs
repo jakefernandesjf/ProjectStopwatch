@@ -1,6 +1,6 @@
-﻿namespace ProjectTimerApp
+﻿namespace ProjectStopwatchApp
 {
-    partial class AddProjects
+    partial class AddProjectsForm
     {
         /// <summary>
         /// Required designer variable.
@@ -123,7 +123,7 @@
             this.Cancel_Button.UseVisualStyleBackColor = true;
             this.Cancel_Button.Click += new System.EventHandler(this.Cancel_Button_Click);
             // 
-            // AddProjects
+            // AddProjectsForm
             // 
             this.AcceptButton = this.Add_Button;
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);

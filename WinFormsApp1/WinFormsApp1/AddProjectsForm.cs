@@ -1,16 +1,16 @@
 ﻿using System.ComponentModel;
 
-namespace ProjectTimerApp
+namespace ProjectStopwatchApp
 {
-    public partial class AddProjects : Form
+    public partial class AddProjectsForm : Form
     {
         #region Constructor
-        public AddProjects(ProjectTimer mainForm)
+        public AddProjectsForm(MainForm mainForm)
         {
             InitializeComponent();
             _mainForm = mainForm;
             _projectNames = new BindingList<string>();
-            _allProjectProperties = new TimerWidgetProperties[] {
+            _allProjectProperties = new StopwatchWidgetProperties[] {
                 mainForm.Project1_Properties,
                 mainForm.Project2_Properties,
                 mainForm.Project3_Properties,
@@ -21,7 +21,7 @@ namespace ProjectTimerApp
                 mainForm.Project8_Properties,
             };           
 
-            foreach (TimerWidgetProperties widgetPropertes in _allProjectProperties)
+            foreach (StopwatchWidgetProperties widgetPropertes in _allProjectProperties)
             {
                 if (widgetPropertes.IsEnabled == true)
                 {
@@ -56,7 +56,7 @@ namespace ProjectTimerApp
             if (result == DialogResult.Yes)
             {
                 _projectNames.Clear();
-                _mainForm.TotalTimerWidget.Reset();
+                _mainForm.TotalStopwatchWidget.Reset();
                 foreach (var widgetProperties in _allProjectProperties)
                 {
                     widgetProperties.TimeElapsed = TimeSpan.Zero;
@@ -68,7 +68,7 @@ namespace ProjectTimerApp
 
         private void SaveAndExit_Button_Click(object sender, EventArgs e)
         {
-            List<TimerWidget> timerWidgets = _mainForm.TotalTimerWidget.GetAllTimerWidgets();
+            List<StopwatchWidget> stopwatchWidgets = _mainForm.TotalStopwatchWidget.GetAllSubWidgets();
 
             for (int i = 0; i < _allProjectProperties.Length; i++)
             {
@@ -82,10 +82,10 @@ namespace ProjectTimerApp
                     _allProjectProperties[i].Name = "";
                     _allProjectProperties[i].IsEnabled = false;
                 }
-                timerWidgets[i].LoadProperties(_allProjectProperties[i]);
+                stopwatchWidgets[i].LoadProperties(_allProjectProperties[i]);
             }
 
-            _mainForm.TotalTimerWidget.UpdateAllTimerWidgets();
+            _mainForm.TotalStopwatchWidget.UpdateAllWidgets();
 
             Close();
         }
@@ -103,9 +103,9 @@ namespace ProjectTimerApp
 
 
         #region Private Fields
-        private readonly ProjectTimer _mainForm;
+        private readonly MainForm _mainForm;
         private readonly BindingList<string> _projectNames;
-        private readonly TimerWidgetProperties[] _allProjectProperties;
+        private readonly StopwatchWidgetProperties[] _allProjectProperties;
         #endregion
     }
 }

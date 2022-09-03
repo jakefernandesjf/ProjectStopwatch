@@ -1,119 +1,117 @@
-﻿using MyTimers;
-
-namespace ProjectTimerApp
+﻿namespace ProjectStopwatchApp
 {
-    public class TimerWidget
+    public class StopwatchWidget
     {
         #region Constructors
-        public TimerWidget(Label timeElapsedLabel, TimerWidgetProperties properties)
+        public StopwatchWidget(Label timeElapsedLabel, StopwatchWidgetProperties properties)
         {
             _timeElapsedLabel = timeElapsedLabel;
             _projectNameLabel = new Label();
-            _timer = new MyTimers.Timer(properties.Name);
-            _activeStatus = false;
-            _enabledStatus = properties.IsEnabled;
-            _timer.AddTime(properties.TimeElapsed);
+            _stopwatch = new MyStopwatch.Stopwatch(properties.Name);
+            _isActive = false;
+            _isEnabled = properties.IsEnabled;
+            _stopwatch.AddTime(properties.TimeElapsed);
         }
 
         /// <summary>
-        /// Creates a <c>TimerWidget</c> with TimeElapsed Label <paramref name="timeElapsedLabel"/> and Project Name Label <paramref name="projectNameLabel"/>
+        /// Creates a <c>StopwatchWidget</c> with TimeElapsed Label <paramref name="timeElapsedLabel"/> and Project Name Label <paramref name="projectNameLabel"/>
         /// </summary>
         /// <param name="timeElapsedLabel"></param>
         /// <param name="projectNameLabel"></param>
-        public TimerWidget(Label timeElapsedLabel, Label projectNameLabel)
+        public StopwatchWidget(Label timeElapsedLabel, Label projectNameLabel)
         {
             _timeElapsedLabel = timeElapsedLabel;
             _projectNameLabel = projectNameLabel;
-            _timer = new MyTimers.Timer(projectNameLabel.Text);
-            _activeStatus = false;
-            _enabledStatus = true;
+            _stopwatch = new MyStopwatch.Stopwatch(projectNameLabel.Text);
+            _isActive = false;
+            _isEnabled = true;
         }
 
         /// <summary>
-        /// Creates a <c>TimerWidget</c> with TimeElapsed Label <paramref name="timeElapsedLabel"/> and Project Name Label <paramref name="projectNameLabel"/>. Sets properties from <paramref name="properties"/>.
+        /// Creates a <c>StopwatchWidget</c> with TimeElapsed Label <paramref name="timeElapsedLabel"/> and Project Name Label <paramref name="projectNameLabel"/>. Sets properties from <paramref name="properties"/>.
         /// </summary>
         /// <param name="timeElapsedLabel"></param>
         /// <param name="projectNameLabel"></param>
         /// <param name="properties"></param>
-        public TimerWidget(Label timeElapsedLabel, Label projectNameLabel, TimerWidgetProperties properties)
+        public StopwatchWidget(Label timeElapsedLabel, Label projectNameLabel, StopwatchWidgetProperties properties)
         {
             _timeElapsedLabel = timeElapsedLabel;
             _projectNameLabel = projectNameLabel;
-            _timer = new MyTimers.Timer();
-            _activeStatus = false;
+            _stopwatch = new MyStopwatch.Stopwatch();
+            _isActive = false;
 
             SetProjectName(properties.Name);
             AddTime(properties.TimeElapsed);         
-            _enabledStatus = properties.IsEnabled;
+            _isEnabled = properties.IsEnabled;
         }
         #endregion
 
 
         #region Public Methods
         /// <summary>
-        /// Starts TimerWidget
+        /// Starts StopwatchWidget
         /// </summary>
         public virtual void Start()
         {
-            _timer.StartTimer();
-            _activeStatus = true;
+            _stopwatch.Start();
+            _isActive = true;
         }
 
         /// <summary>
-        /// Pauses TimerWidget
+        /// Pauses StopwatchWidget
         /// </summary>
         public virtual void Pause()
         {
-            _timer.PauseTimer();
-            _activeStatus = false;
+            _stopwatch.Pause();
+            _isActive = false;
         }
 
         /// <summary>
-        /// Enables TimerWidget
+        /// Enables StopwatchWidget
         /// </summary>
         public void Enable()
         {
-            _enabledStatus = true;
+            _isEnabled = true;
             _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Visible = true));
             _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Visible = true));
         }
 
         /// <summary>
-        /// Disables TimerWidget
+        /// Disables StopwatchWidget
         /// </summary>
         public void Disable()
         {
-            _enabledStatus = false;
+            _isEnabled = false;
             _timeElapsedLabel.Invoke(new MethodInvoker(() => _timeElapsedLabel.Visible = false));
             _projectNameLabel.Invoke(new MethodInvoker(() => _projectNameLabel.Visible = false));
         }
 
         /// <summary>
-        /// Resets TimerWidget
+        /// Resets StopwatchWidget
         /// </summary>
         public virtual void Reset()
         {
-            _timer.ResetTimer();
+            _stopwatch.Reset();
             SetInactiveWidgetStyle();
             UpdateTimeElapsed();
         }
 
         /// <summary>
-        /// Adds <paramref name="time"/> to timer.
+        /// Adds <paramref name="time"/> to stopwatch.
         /// </summary>
         /// <param name="time"></param>
         public void AddTime(TimeSpan time)
         {
-            _timer.AddTime(time);
+            _stopwatch.AddTime(time);
         }
 
         /// <summary>
-        /// Subtracts <paramref name="time"/> from timer.
+        /// Subtracts <paramref name="time"/> from stopwatch.
         /// </summary>
         /// <param name="time"></param>
         public void SubtractTime(TimeSpan time)
         {
-            _timer.SubtractTime(time);
+            _stopwatch.SubtractTime(time);
         }
 
         /// <summary>
@@ -139,7 +137,7 @@ namespace ProjectTimerApp
         /// </summary>
         public virtual void UpdateTimeElapsed()
         {
-            _timeElapsedLabel.Text = _timer.GetTimeElapsed().ToString(TIMESPAN_STRING_FORMAT);
+            _timeElapsedLabel.Text = _stopwatch.GetTimeElapsed().ToString(TIMESPAN_STRING_FORMAT);
         }
 
         /// <summary>
@@ -152,25 +150,25 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
-        /// Gets the time elapsed of the timer widget.
+        /// Gets the time elapsed of the stopwatch widget.
         /// </summary>
         /// <returns>Time elapsed</returns>
         public TimeSpan GetTimeElapsed()
         {
-            return _timer.GetTimeElapsed();
+            return _stopwatch.GetTimeElapsed();
         }
 
         /// <summary>
-        /// Get Active status of timer widget.
+        /// Get Active status of stopwatch widget.
         /// </summary>
         /// <returns></returns>
         public bool GetActiveStatus()
         {
-            return _activeStatus;
+            return _isActive;
         }
 
         /// <summary>
-        /// Sets the timer widget to the Active Style
+        /// Sets the stopwatch widget to the Active Style
         /// </summary>
         public virtual void SetActiveWidgetStyle()
         {
@@ -179,7 +177,7 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
-        /// Sets the timer widget to the Inactive style.
+        /// Sets the stopwatch widget to the Inactive style.
         /// </summary>
         public virtual void SetInactiveWidgetStyle()
         {
@@ -188,42 +186,42 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
-        /// Loads <paramref name="properties"/> to timer widget.
+        /// Loads <paramref name="properties"/> to stopwatch widget.
         /// </summary>
         /// <param name="properties"></param>
-        public void LoadProperties(TimerWidgetProperties properties)
+        public void LoadProperties(StopwatchWidgetProperties properties)
         {
             SetProjectName(properties.Name);
-            _enabledStatus = properties.IsEnabled;
-            _timer.ResetTimer();
-            _timer.AddTime(properties.TimeElapsed);
+            _isEnabled = properties.IsEnabled;
+            _stopwatch.Reset();
+            _stopwatch.AddTime(properties.TimeElapsed);
 
-            if (!_enabledStatus) { Disable(); }
+            if (!_isEnabled) { Disable(); }
             else { Enable(); }
         }
         #endregion
 
 
         #region Public Fields
-        public bool IsEnabled { get { return _enabledStatus; } }
+        public bool IsEnabled { get { return _isEnabled; } }
         #endregion
 
 
         #region Private Fields
         private Label _timeElapsedLabel;
         private Label _projectNameLabel;
-        private readonly MyTimers.Timer _timer;
-        private bool _activeStatus;
-        private bool _enabledStatus;
+        private readonly MyStopwatch.Stopwatch _stopwatch;
+        private bool _isActive;
+        private bool _isEnabled;
         private const string TIMESPAN_STRING_FORMAT = @"hh\:mm\:ss";
         #endregion
     }
 
-    public class TotalTimerWidget : TimerWidget
+    public class TotalStopwatchWidget : StopwatchWidget
     {
         #region Constructors
         /// <summary>
-        /// Creates a <c>TotalTimerWidget</c> object.
+        /// Creates a <c>TotalStopwatchWidget</c> object.
         /// </summary>
         /// <param name="timeElapsedLabel"></param>
         /// <param name="subtract30Button"></param>
@@ -231,20 +229,20 @@ namespace ProjectTimerApp
         /// <param name="add10Button"></param>
         /// <param name="add30Button"></param>
         /// <param name="pauseButton"></param>
-        /// <param name="subTimerWidgets"></param>
-        public TotalTimerWidget(
+        /// <param name="subWidgets"></param>
+        public TotalStopwatchWidget(
             Label timeElapsedLabel, 
             Button subtract30Button, 
             Button subtract10Button,
             Button add10Button,
             Button add30Button,
             Button pauseButton,
-            List<TimerWidget> subTimerWidgets,
-            TimerWidgetProperties timerWidgetProperties) 
-            :base(timeElapsedLabel, timerWidgetProperties)
+            List<StopwatchWidget> subWidgets,
+            StopwatchWidgetProperties widgetProperties) 
+            :base(timeElapsedLabel, widgetProperties)
         {
-            _subTimerWidgets = subTimerWidgets;
-            _activeTimerWidget = subTimerWidgets.First();
+            _subWidgets = subWidgets;
+            _activeWidget = subWidgets.First();
             _subtract10Button = subtract10Button;
             _subtract30Button = subtract30Button;
             _add10Button = add10Button;
@@ -256,153 +254,153 @@ namespace ProjectTimerApp
 
         #region Public Methods
         /// <summary>
-        /// Pauses the <c>TotalTimerWidget</c>.
+        /// Pauses the <c>TotalStopwatchWidget</c>.
         /// </summary>
         public override void Pause()
         {
-            Thread TotalTimerWidgetThread = new(() => base.Pause());
-            Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.Pause());
+            Thread TotalStopwatchWidgetThread = new(() => base.Pause());
+            Thread ActiveSubWidgetThread = new(() => _activeWidget.Pause());
 
-            TotalTimerWidgetThread.Start();
-            ActiveSubTimerWidgetThread.Start();
+            TotalStopwatchWidgetThread.Start();
+            ActiveSubWidgetThread.Start();
 
-            GetActiveTimerWidget().SetInactiveWidgetStyle();
+            GetActiveWidget().SetInactiveWidgetStyle();
             SetInactiveWidgetStyle();
         }
 
         /// <summary>
-        /// Resets the <c>TotalTimerWidget</c> to 0 and all sub-timer widgets.
+        /// Resets the <c>TotalStopwatchWidget</c> to 0 and all sub-stopwatch widgets.
         /// </summary>
         public override void Reset()
         {
             base.Reset();
 
-            foreach(TimerWidget timerWidget in _subTimerWidgets)
+            foreach(StopwatchWidget widget in _subWidgets)
             {
-                timerWidget.Reset();
+                widget.Reset();
             }
 
             UpdateTimeElapsed();
         }
 
         /// <summary>
-        /// Adds the <paramref name="timerWidget"/> to the <c>TotalTimerWidget</c>.
+        /// Adds the <paramref name="widget"/> to the <c>TotalStopwatchWidget</c>.
         /// </summary>
-        /// <param name="timerWidget"></param>
-        public void AddTimerWidget(TimerWidget timerWidget)
+        /// <param name="widget"></param>
+        public void AddWidget(StopwatchWidget widget)
         {
-            _subTimerWidgets.Add(timerWidget);
+            _subWidgets.Add(widget);
         }
 
         /// <summary>
-        /// Disables all sub-timer widgets and clears the sub-timer widget list.
+        /// Disables all sub-stopwatch widgets and clears the sub-timer widget list.
         /// </summary>
-        public void DisableAllTimerWidgets()
+        public void DisableAllWidgets()
         {
-            foreach  (var timerWidget in _subTimerWidgets)
+            foreach  (var widget in _subWidgets)
             {
-                timerWidget.Disable();
+                widget.Disable();
             }
         }
 
         /// <summary>
-        /// Gets the list of sub-timer widgets fo the <c>TotalTimerWidget</c>.
+        /// Gets the list of sub-stopwatch widgets fo the <c>TotalStopwatchWidget</c>.
         /// </summary>
         /// <returns></returns>
-        public List<TimerWidget> GetAllTimerWidgets()
+        public List<StopwatchWidget> GetAllSubWidgets()
         {
-            return _subTimerWidgets;
+            return _subWidgets;
         }
 
         /// <summary>
-        /// Sets the active sub-timer widget to the <paramref name="timerWidget"/> and starts the sub-timer widget.
+        /// Sets the active sub-stopwatch widget to the <paramref name="widget"/> and starts the sub-stopwatch widget.
         /// </summary>
-        /// <param name="timerWidget"></param>
+        /// <param name="widget"></param>
         /// <exception cref="ArgumentException"></exception>
-        public void SetAndStartActiveSubTimerWidget(TimerWidget timerWidget)
+        public void SetAndStartActiveSubWidget(StopwatchWidget widget)
         {
-            TimerWidget lastTimerWidget = GetActiveTimerWidget();
-            if (lastTimerWidget != timerWidget)
+            StopwatchWidget lastStopwatchWidget = GetActiveWidget();
+            if (lastStopwatchWidget != widget)
             {               
-                _activeTimerWidget = timerWidget;
+                _activeWidget = widget;
 
-                Thread TotalTimerWidgetThread = new(() => Start());
-                Thread StartActiveTimerWidgetThread = new(() => _activeTimerWidget.Start());
-                Thread PauseLastTimerWidgetThread = new(() => lastTimerWidget.Pause());
+                Thread TotalStopwatchWidgetThread = new(() => Start());
+                Thread StartActiveWidgetThread = new(() => _activeWidget.Start());
+                Thread PauseLastWidgetThread = new(() => lastStopwatchWidget.Pause());
 
-                TotalTimerWidgetThread.Start();
-                StartActiveTimerWidgetThread.Start();
-                PauseLastTimerWidgetThread.Start();
-
-                UpdateTimeElapsed();
-                lastTimerWidget.SetInactiveWidgetStyle();
-            }
-            else if (lastTimerWidget == timerWidget && !GetActiveStatus())
-            {
-                Thread TotalTimerWidgetThread = new(() => Start());
-                Thread StartActiveTimerWidgetThread = new(() => _activeTimerWidget.Start());
-
-                TotalTimerWidgetThread.Start();
-                StartActiveTimerWidgetThread.Start();
+                TotalStopwatchWidgetThread.Start();
+                StartActiveWidgetThread.Start();
+                PauseLastWidgetThread.Start();
 
                 UpdateTimeElapsed();
+                lastStopwatchWidget.SetInactiveWidgetStyle();
             }
-            else if (_subTimerWidgets.Contains(timerWidget) == false)
+            else if (lastStopwatchWidget == widget && !GetActiveStatus())
             {
-                throw new ArgumentException($"SubTimerWidgets does not contain {timerWidget.GetProjectName()}");
+                Thread TotalStopwatchWidgetThread = new(() => Start());
+                Thread StartActiveWidgetThread = new(() => _activeWidget.Start());
+
+                TotalStopwatchWidgetThread.Start();
+                StartActiveWidgetThread.Start();
+
+                UpdateTimeElapsed();
+            }
+            else if (_subWidgets.Contains(widget) == false)
+            {
+                throw new ArgumentException($"SubWidgets does not contain {widget.GetProjectName()}");
             }
             
-            GetActiveTimerWidget().SetActiveWidgetStyle();
+            GetActiveWidget().SetActiveWidgetStyle();
             SetActiveWidgetStyle();
 
-            lastTimerWidget.UpdateTimeElapsed();
+            lastStopwatchWidget.UpdateTimeElapsed();
             UpdateTimeElapsed();
         }
 
         /// <summary>
-        /// Gets the active sub-timer widget of the <c>TotalTimerWidget</c>.
+        /// Gets the active sub-stopwatch widget of the <c>TotalStopwatchWidget</c>.
         /// </summary>
         /// <returns></returns>
-        public ref TimerWidget GetActiveTimerWidget()
+        public ref StopwatchWidget GetActiveWidget()
         {
-            return ref _activeTimerWidget;
+            return ref _activeWidget;
         }
 
         /// <summary>
-        /// Adds <paramref name="time"/> to the active sub-timer widget.
+        /// Adds <paramref name="time"/> to the active sub-stopwatch widget.
         /// </summary>
         /// <param name="time"></param>
-        public void AddTimeToActiveTimerWidget(TimeSpan time)
+        public void AddTimeToActiveWidget(TimeSpan time)
         {
-            Thread TotalTimerWidgetThread = new(() => AddTime(time));
-            Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.AddTime(time));
+            Thread TotalStopwatchWidgetThread = new(() => AddTime(time));
+            Thread ActiveSubWidgetThread = new(() => _activeWidget.AddTime(time));
 
-            TotalTimerWidgetThread.Start();
-            ActiveSubTimerWidgetThread.Start();
+            TotalStopwatchWidgetThread.Start();
+            ActiveSubWidgetThread.Start();
 
             UpdateTimeElapsed();
         }
 
         /// <summary>
-        /// Subtracts <paramref name="time"/> from the active sub-timer widget.
+        /// Subtracts <paramref name="time"/> from the active sub-stopwatch widget.
         /// </summary>
         /// <param name="time"></param>
-        public void SubtractTimeFromActiveTimerWidget(TimeSpan time)
+        public void SubtractTimeFromActiveWidget(TimeSpan time)
         {
-            if (_activeTimerWidget.GetTimeElapsed() > time)
+            if (_activeWidget.GetTimeElapsed() > time)
             {
-                Thread TotalTimerWidgetThread = new(() => SubtractTime(time));
-                Thread ActiveSubTimerWidgetThread = new(() => _activeTimerWidget.SubtractTime(time));
+                Thread TotalStopwatchWidgetThread = new(() => SubtractTime(time));
+                Thread ActiveSubWidgetThread = new(() => _activeWidget.SubtractTime(time));
 
-                TotalTimerWidgetThread.Start();
-                ActiveSubTimerWidgetThread.Start();
+                TotalStopwatchWidgetThread.Start();
+                ActiveSubWidgetThread.Start();
 
                 UpdateTimeElapsed();
             }
         }
 
         /// <summary>
-        /// Sets the timer widget to the Active Style
+        /// Sets the stopwatch widget to the Active Style
         /// </summary>
         public override void SetActiveWidgetStyle()
         {
@@ -412,7 +410,7 @@ namespace ProjectTimerApp
         }
 
         /// <summary>
-        /// Sets the timer widget to the Inactive style.
+        /// Sets the stopwatch widget to the Inactive style.
         /// </summary>
         public override void SetInactiveWidgetStyle()
         {
@@ -426,20 +424,20 @@ namespace ProjectTimerApp
         /// </summary>
         public override void UpdateTimeElapsed()
         {
-            _activeTimerWidget.UpdateTimeElapsed();
+            _activeWidget.UpdateTimeElapsed();
             base.UpdateTimeElapsed();
         }
 
         /// <summary>
-        /// Updates all timer widgets time elapsed label and disables/enables UI controls.
+        /// Updates all stopwatch widgets time elapsed label and disables/enables UI controls.
         /// </summary>
-        public void UpdateAllTimerWidgets()
+        public void UpdateAllWidgets()
         {
-            foreach (var timerWidget in _subTimerWidgets)
+            foreach (var widget in _subWidgets)
             {
-                timerWidget.UpdateTimeElapsed();
-                if (!timerWidget.IsEnabled) { timerWidget.Disable(); }
-                else { timerWidget.Enable(); }
+                widget.UpdateTimeElapsed();
+                if (!widget.IsEnabled) { widget.Disable(); }
+                else { widget.Enable(); }
             }
         }
         #endregion
@@ -469,8 +467,8 @@ namespace ProjectTimerApp
 
 
         #region Fields
-        private List<TimerWidget> _subTimerWidgets;
-        private TimerWidget _activeTimerWidget;
+        private List<StopwatchWidget> _subWidgets;
+        private StopwatchWidget _activeWidget;
         private readonly Button _subtract30Button;
         private readonly Button _subtract10Button;
         private readonly Button _add10Button;
