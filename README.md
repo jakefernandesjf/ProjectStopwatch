@@ -1,4 +1,4 @@
-# Project Stopwatch
+# ⏱ Project Stopwatch
 A Windows Form application to track time between multiple projects using stopwatches.
 
 ![image](https://user-images.githubusercontent.com/46454692/188289516-54933599-6438-409c-afdf-c113e66d0eca.png)
